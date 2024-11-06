@@ -235,3 +235,4 @@ plt.show()
 ![Figure 4: Total Sales By City](/Output/Total_sales_byCity.png){fig_alt = "Blue columns sorted by city on x-axis and the y-axis show the Sales in USD."}
 
 **City Comparisons (Sales By City)**
+Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers.
