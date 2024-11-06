@@ -199,4 +199,9 @@ After dropping rows with all null values, we proceed with the following steps to
 With a clean dataset, we’re ready to perform deeper analysis to uncover patterns and insights. The following sections could cover key insights, such as peak sales months, popular products, and sales distributions across different cities.
 
 ### a/ What is the best months for sales?
-The analysis
+The question as for analysis on 'Sales' grouped by months. By creating a 'Sales' columns we report products of 'Quantity' and 'Price Each'.
+
+```{python}
+df['Sales'] = df['Quantity Ordered'] * df['Price Each']
+```
+
