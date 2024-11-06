@@ -226,6 +226,10 @@ There are certain months stand out:
 
 - **December** recorded the **highest sales volume**, likely due to the holiday season and year-end promotions.
 
+- **October** also showed a significant increase, possibly attribuited to sale program.
+
+- A discrete desceasing over months from **April to November** can implement the stable visits and purchase by sponstaneous demand which could describe the experience to products and slow down in the pre-sales season.
+
 ### b/ **What city sold the most product?**
 
 For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.
