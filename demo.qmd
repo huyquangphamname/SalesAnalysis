@@ -198,7 +198,7 @@ After dropping rows with all null values, we proceed with the following steps to
 ## 4. Analysis and Insights
 With a clean dataset, we’re ready to perform deeper analysis to uncover patterns and insights. The following sections could cover key insights, such as peak sales months, popular products, and sales distributions across different cities.
 
-### a/ What is the best months for sales?
+### a/ **What is the best months for sales?**
 The question as for analysis on 'Sales' grouped by months. By creating a 'Sales' columns we report products of 'Quantity' and 'Price Each'.
 
 ```{python}
@@ -219,6 +219,15 @@ plt.show()
 
 ![Figure 3: Total Sales By Month](/Output/Total_Sales_ByMonths.png){fig_alt = "Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at near ly 5 milion us dollar"}
 
+The sales data over the period from **January to December** reveals notatble trends in overall sales performance. Over 12 months, the sales indicates **a steady increase in sales** with several **seasonal spikes** corresponding to specific months. This trend suggests growing customer engagement and effective sales strategies during preak periods.
+
+**Monthly Higlights**
+There are certain months stand out:
+
+- **December** recorded the **highest sales volume**, likely due to the holiday season and year-end promotions.
+
+### b/ **What city sold the most product?**
+
 For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.
 
 ```{python}
@@ -232,3 +241,4 @@ plt.show()
 ```
 
 ![Figure 4: Total Sales By City](/Output/Total_sales_byCity.png){fig_alt = "Blue columns sorted by city on x-axis and the y-axis show the Sales in USD."}
+
