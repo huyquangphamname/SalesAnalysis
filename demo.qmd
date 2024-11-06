@@ -72,7 +72,7 @@ Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` col
 `Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.
 
 | Column Name | Description |
-|------------------|------------------------------------------------------|
+|----------------------|--------------------------------------------------|
 | `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |
 | `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |
 | `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |
@@ -108,7 +108,7 @@ null_data.head()
 <div>
 
 |      | Order ID | Product | Quantity Ordered | Price Each | Order Date | Purchase Address |
-|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+|----------|----------|----------|----------|----------|----------|----------|
 | 264  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |
 | 648  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |
 | 680  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |
@@ -124,7 +124,7 @@ null_data.head()
 <div>
 
 |   | Order ID | Product | Quantity Ordered | Price Each | Order Date | Purchase Address |
-|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+|----------|----------|----------|----------|----------|----------|----------|
 | 0 | 295665 | Macbook Pro Laptop | 1 | 1700 | 12/30/19 00:01 | 136 Church St, New York City, NY 10001 |
 | 1 | 295666 | LG Washing Machine | 1 | 600.0 | 12/29/19 07:03 | 562 2nd St, New York City, NY 10001 |
 | 2 | 295667 | USB-C Charging Cable | 1 | 11.95 | 12/12/19 18:21 | 277 Main St, New York City, NY 10001 |
@@ -188,7 +188,7 @@ The question as for analysis on 'Sales' grouped by months. By creating a 'Sales'
 df['Sales'] = df['Quantity Ordered'] * df['Price Each']
 ```
 
-We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for querry and draw charts columns.
+We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for query and draw charts columns.
 
 ```{python}
 month_sales = df.groupby('Month')['Sales'].sum()
@@ -200,7 +200,7 @@ plt.title('Total Sales by Month')
 plt.show()
 ```
 
-![Figure 3: Total Sales By Month](/Output/Total_Sales_ByMonths.png){fig_alt = "Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at nearly 5 million us dollar."}
+<img src="/Output/Total_Sales_ByMonths.png" alt="Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at nearly 5 million us dollar."/>*Figure 3: Total Sales By Month*
 
 The sales data over the period from **January to December** reveals notable trends in overall sales performance showing **a steady increase in sales** over the year with several **seasonal spikes** in specific months. This pattern suggests growing customer engagement and effective sales strategies, especially during peak periods.
 
@@ -232,6 +232,6 @@ plt.title('Total Sales by City')
 plt.show()
 ```
 
-<img src="/Output/Total_sales_byCity.png" alt="Total Sales By City"/>*Figure 4: Total Sales By City*
+<img src="/Output/Total_Sales_byCity.png" alt="Total Sales By City"/> *Figure 4: Total Sales By City*
 
 **City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers.
