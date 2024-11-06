@@ -205,3 +205,18 @@ The question as for analysis on 'Sales' grouped by months. By creating a 'Sales'
 df['Sales'] = df['Quantity Ordered'] * df['Price Each']
 ```
 
+We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for querry and draw charts columns.
+
+```{python}
+month_sales = df.groupby('Month')['Sales'].sum()
+month_sales.plot(kind='bar')
+plt.xticks(rotation='horizontal')
+plt.ylabel('Sales in USD')
+plt.xlabel('Month')
+plt.title('Total Sales by Month')
+plt.show()
+```
+
+![Figure 3: Total Sales By Month](){fig_alt = ""}
+
+For cities, we could
