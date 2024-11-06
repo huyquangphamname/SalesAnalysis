@@ -219,16 +219,22 @@ plt.show()
 
 ![Figure 3: Total Sales By Month](/Output/Total_Sales_ByMonths.png){fig_alt = "Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at near ly 5 milion us dollar"}
 
-The sales data over the period from **January to December** reveals notatble trends in overall sales performance. Over 12 months, the sales indicates **a steady increase in sales** with several **seasonal spikes** corresponding to specific months. This trend suggests growing customer engagement and effective sales strategies during preak periods.
+The sales data over the period from **January to December** reveals notatble trends in overall sales performance showing **a steady increase in sales** over the year with several **seasonal spikes** in specific months. This pattern suggests growing customer engagement and effective sales strategies, especially during preak periods.
 
 **Monthly Higlights**
-There are certain months stand out:
+Certain months stand out for their impact on sales performance:
 
-- **December** recorded the **highest sales volume**, likely due to the holiday season and year-end promotions.
+- **December** recorded the **highest sales volume**, likely due to the holiday season and year-end promotions, capturing increased consumer spending.
 
-- **October** also showed a significant increase, possibly attribuited to sale program.
+- **October** saw a significant boost, possibly driven by a targetted sale program or promotion.
 
-- A discrete desceasing over months from **April to November** can implement the stable visits and purchase by sponstaneous demand which could describe the experience to products and slow down in the pre-sales season.
+- April to November showed a gradual decline, indicating a stabilization in demand. This may suggest a shift from high initial interest and purchases to more spontaneous or needs-based buying, as customers adjusted after initial seasonal spikes.
+
+**Key Observations**
+
+- **Peak Sales in December:** The highest sales in December higligh a successful capitalizing on holiday shopping trends.  This aligns with typical consumer behavior during this time, where year-end promotions boost spending.
+- **October Sale Spike:**  A strong increase in October suggests that promotions were effective, attracting consumers looking for discounts ahead of a main season in year.
+- **Lower Mid-year Sales** The dip in sales from mid-year could indicate a reduction in consumer spending after an initial surge in the first quarter. This may reflect a natural leveling off, as the early months often see heightened consumer enthusiasm, which tapers as customers become more selective or budget-conscious later in the year.
 
 ### b/ **What city sold the most product?**
 
