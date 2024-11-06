@@ -23,7 +23,7 @@ In the competitive world of retail, data holds the key to understanding customer
 
 The data nature witness the reverse relation between the 'Sale Quantiy' and 'Price Each', which makes the markets consumer more items like accessories rather than huge investment like laptops, electrics house holds. The relations of low-price product to their large proportion sales amount suggests the demonstration methods by comparing average price.
 
-![Figure 1: Subplot of price each items over the quantity of products in total](/Users/phamquanghuy/Downloads/Pandas-Data-Science-Tasks-master/SalesAnalysis/Output/PriceQuantityComparision.png){fig-alt="Bar chart showing the number of orders per product with an overlaid line plot of the average price for each product. The green bars represent the quantity ordered, while the blue line indicates the average price in dollars. This visualization helps identify popular items and their price points, showing that lower-priced items like batteries have higher sales volumes, whereas premium products like MacBook Pro have fewer orders."}
+![Figure 1: Subplot of price each items over the quantity of products in total](/Output/PriceQuantityComparision.png){fig-alt="Bar chart showing the number of orders per product with an overlaid line plot of the average price for each product. The green bars represent the quantity ordered, while the blue line indicates the average price in dollars. This visualization helps identify popular items and their price points, showing that lower-priced items like batteries have higher sales volumes, whereas premium products like MacBook Pro have fewer orders."}
 
 There are exceptions in this chart is the office products like MacBook Pro and ThinkPad, which reasonably explains the other impacts of customer demands or the investment cycle into new products. The example of uncover insights from sales data inspired by Keith Galli's tutorial is essentials of uncovering insights including peak periods, best-selling products, and potential strategies to optimize sales.
 
@@ -99,7 +99,7 @@ import seaborn as sns
 
 if df.isnull().values.any(): numeric_df = df.apply(pd.to_numeric errors='coerce') sns.heatmap(numeric_df\[numeric_df.isnull().any(axis=1)\], cbar=False, cmap='viridis') else: print("No missing values to visualize.") \`\`\`
 
-![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Users/phamquanghuy/Downloads/Pandas-Data-Science-Tasks-master/SalesAnalysis/Output/heatmapNaN.png){fig-alt="The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps." fig-align="center"}
+![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt="The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps." fig-align="center"}
 
 ```{python}
 null_data = df[df.isnull().any(axis=1)]
@@ -217,6 +217,6 @@ plt.title('Total Sales by Month')
 plt.show()
 ```
 
-![Figure 3: Total Sales By Month](){fig_alt = ""}
+![Figure 3: Total Sales By Month](/Output/Total_Sales_ByMonths.png){fig_alt = "Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at near ly 5 milion us dollar"}
 
 For cities, we could
