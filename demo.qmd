@@ -219,4 +219,16 @@ plt.show()
 
 ![Figure 3: Total Sales By Month](/Output/Total_Sales_ByMonths.png){fig_alt = "Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at near ly 5 milion us dollar"}
 
-For cities, we could
+For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.
+
+```{python}
+city_sales = df.groupby('City')['Sales'].sum().sort_values()
+city_sales.plot(kind='bar')
+plt.xticks(rotation='vertical')
+plt.ylabel('Sales in USD')
+plt.xlabel('City')
+plt.title('Total Sales by City')
+plt.show()
+```
+
+![Figure 4: Total Sales By City](/Output/Total_sales_byCity.png){fig_alt = "Blue columns sorted by city on x-axis and the y-axis show the Sales in USD."}
