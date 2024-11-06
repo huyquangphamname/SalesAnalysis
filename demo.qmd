@@ -233,3 +233,5 @@ plt.show()
 ```
 
 ![Figure 4: Total Sales By City](/Output/Total_sales_byCity.png){fig_alt = "Blue columns sorted by city on x-axis and the y-axis show the Sales in USD."}
+
+**City Comparisons (Sales By City)**
