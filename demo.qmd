@@ -72,7 +72,7 @@ Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` col
 `Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.
 
 | Column Name | Description |
-|-----------------|-------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |
 | `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |
 | `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |
@@ -86,7 +86,7 @@ The data summary from the primary data interpretation shows shows no missing dat
 
 The priority is to find rows of NAN values rows and watch over all numeric data columns. The visualization shows below.
 
-````{python}
+```{python}
 ## Visualize missing values
 
 import seaborn as sns
@@ -96,7 +96,7 @@ if df.isnull().values.any():
     sns.heatmap(numeric_df\[numeric_df.isnull().any(axis=1)\], cbar=False, cmap='viridis')
     else:
         print("No missing values to visualize.")
-````
+```
 
 ![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt="The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps." fig-align="center."}
 
@@ -232,7 +232,6 @@ plt.title('Total Sales by City')
 plt.show()
 ```
 
-![Figure 4: Total Sales By City](/Output/Total_sales_byCity.png){fig_alt = "Blue columns sorted by city on x-axis and the y-axis show the Sales in USD."}
+<img src="/Output/Total_sales_byCity.png" alt="Total Sales By City"/>*Figure 4: Total Sales By City*
 
-**City Comparisons (Sales By City)**
-Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers.
+**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers.
