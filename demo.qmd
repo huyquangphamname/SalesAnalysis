@@ -3,9 +3,10 @@ title: "Sales Data Analysis Report"
 author: "Pham Quang Huy"
 date: "2024-10-31"
 # format: pdf
-format: pdf
-#    html: 
-#      code-fold: True
+format:
+   html: 
+     encoding: 'UTF-8'
+     theme: style.css
 jupyter: python3
 reference-doc: bib-latex
 ---
