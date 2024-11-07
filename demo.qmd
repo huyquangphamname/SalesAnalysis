@@ -280,14 +280,14 @@ print(city_sales)
 
 - **Austin and Portland**: These cities show lower sales volumes, potentially due to their smaller market sizes and economic differences. This could be an opportunity for targeted marketing or expansion efforts to improve market penetration.
 
-### Regional Patterns
+**Regional Patterns**
 Analyzing regional trends reveals:
 
 - **Coastal vs. Inland Cities:** Coastal cities like San Francisco, Los Angeles, and New York City outperform inland cities, potentially due to higher population densities and diverse consumer demographics.
 - **Urban vs. Suburban Areas:** Higher sales in major urban centers suggest that population density and economic prosperity play crucial roles in driving demand.
 
 
-### Sales Performance by Quarter
+### c/ What is sales performance by quarter over cities?
 
 To gain deeper insight into sales trends, we analyzed the percentage change in sales for each city by quarter. This helps identify periods of growth or decline and spot seasonal trends.
 
@@ -317,3 +317,41 @@ plt.legend(title='Quarter', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.grid(True, axis='y')
 plt.show()
 ````
+
+### d/ What products sales are prominent due to the cities sales?
+
+This section explores product demand across cities. By visualizing products purchased per Order ID by city, we can uncover city-specific preferences for particular products and categories.
+
+````{python}
+# Plot the products purchased per order ID by city
+fig, ax = plt.subplots(figsize=(14, 10))
+products_per_order_city = df.pivot_table(index='Product', columns='City', values='Order ID', aggfunc='count', fill_value=0)
+sns.heatmap(products_per_order_city, cmap='YlGnBu', ax=ax)
+plt.title('Products Purchased per Order ID by City')
+plt.xlabel('City')
+plt.ylabel('Product')
+plt.xticks(rotation=90)
+plt.yticks(rotation=0)
+plt.show()
+````
+
+
+**Key Insights**
+- **Product Preferences:** High intensity in certain cells indicates strong demand for specific products within certain cities. For instance, cities like San Francisco and Los Angeles have high purchases in categories like electronics, reflecting consumer trends and economic status.
+- **Low-Demand Products:** Certain products show low sales across all cities, suggesting niche appeal or limited market interest. Targeted promotions or bundling with popular items may improve visibility and sales.
+
+### e/ What insights can be drawn from the density plot of sales by city regarding sales distribution and city-specific spending patterns?
+
+The density plot below illustrates the distribution of sales values across cities, highlighting cities with a wider range of purchase amounts.
+
+```{python}
+fig, ax = plt.subplots(figsize=(14, 10))
+sns.kdeplot(data=df, x='Sales', hue='City', fill=True, common_norm=False, alpha=0.5, ax=ax)
+plt.title('Density Plot of Sales by City')
+plt.xlabel('Sales in USD')
+plt.ylabel('Density')
+plt.show()
+```
+**Key Insights**
+- **Sales Distribution:** Cities like San Francisco and New York City display a broad range of sales values, possibly indicating a mix of high-value purchases and more frequent, lower-value purchases.
+- **City-Specific Spending Patterns:** Some cities show peaks at particular sales values, suggesting standard purchase behaviors or common price points among popular products.
