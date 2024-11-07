@@ -7,6 +7,7 @@ format: pdf
 #    html: 
 #      code-fold: True
 jupyter: python3
+reference-doc: bib-latex
 ---
 
 # Sales Data Analysis Report
