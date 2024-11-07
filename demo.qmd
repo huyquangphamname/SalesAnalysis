@@ -3,9 +3,9 @@ title: "Sales Data Analysis Report"
 author: "Pham Quang Huy"
 date: "2024-10-31"
 # format: pdf
-format:
-    html: 
-        code-fold: True
+format: pdf
+#    html: 
+#      code-fold: True
 jupyter: python3
 ---
 
