@@ -272,7 +272,7 @@ plt.show()
 - **Top-Performing Region in Q1:** The chart shows which city contributed the most to total sales in Q1 (Jan–Mar). This insight helps us understand which regions experience strong demand at the start of the year.
 - **Sales in the Last 3 Months:** Observing the fourth quarter (Oct–Dec) helps identify cities with significant sales contributions, useful for year-end planning and inventory management.
 
-### **Key Takeaways**
+### **Key Takeaways of Sales Trends**
 
 -   **Peak Sales in December:** December recorded the highest sales volume, likely due to holiday season spending and effective year-end promotions. This peak highlights the importance of stock and promotional planning to maximize revenue during high-demand periods.
 -   **October Sale Spike:** A noticeable spike in October suggests successful promotional efforts, possibly attracting customers looking for early holiday deals. Businesses may consider launching targeted campaigns during this period to further boost sales.
@@ -402,7 +402,10 @@ plt.show()
 - **Diverse Sales Ranges in Major Cities:** Cities like San Francisco and New York City exhibit a wide range of purchase amounts, which suggests a mix of high-value purchases and frequent, lower-value transactions.
 - **City-Specific Spending Peaks:** Some cities show concentrated sales at specific price points, suggesting common purchasing behaviors and popular price brackets. This insight can guide product pricing strategies to match city-specific spending habits.
 
-### **Key Takeaways**
+### **Key Takeaways City Comparisons**
 - **Growth Opportunities:** For low-performing cities such as Austin and Portland, targeted marketing campaigns and tailored promotions could help boost sales and tap into untapped markets.
 - **City-Specific Product Strategies:** Tailoring product offerings to match each city’s preferences, such as electronics in tech-oriented cities, can drive sales. Adjusting inventory and marketing plans based on seasonal demand fluctuations can help optimize sales, especially in cities with significant seasonal variability.
 - **Quarterly Insights for Inventory Planning:**  High-demand items should be well-stocked in top-performing cities, while niche products may require selective stocking or promotion strategies.
+
+### g/ Which products are the most popular, and what common traits do they share?
+By analyzing sales data to find the highest-grossing products, we can uncover patterns, such as product type, price range, or seasonal appeal, that drive consumer interest.
