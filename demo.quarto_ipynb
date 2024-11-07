@@ -4,18 +4,19 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
+        "````qmd\n",
         "---\n",
         "title: \"Sales Data Analysis Report\"\n",
         "author: \"Pham Quang Huy\"\n",
         "date: \"2024-10-31\"\n",
         "# format: pdf\n",
-        "format: pdf\n",
-        "#    html: \n",
-        "#      code-fold: True\n",
+        "format:\n",
+        "   html: \n",
+        "     encoding: 'UTF-8'\n",
+        "     theme: style.css\n",
         "jupyter: python3\n",
         "reference-doc: bib-latex\n",
         "---\n",
-        "\n",
         "\n",
         "# Sales Data Analysis Report\n",
         "\n",
@@ -43,9 +44,9 @@
         "\n",
         "In the video, the initial data integration created a one unified `.csv` file containing 12 sales data collections by various months in a year. The merging data from each month in sales data implements read files end with `.csv`. The reason was provided by the author/youtuber is to create an independent place have abundant data for analyzing in details.\n",
         "\n",
-        "One more important practice is to `import` very handling libraries.\n"
+        "One more important practice is to `import` very handling libraries."
       ],
-      "id": "24b440a8"
+      "id": "06352ce8"
     },
     {
       "cell_type": "code",
@@ -66,7 +67,7 @@
         "\n",
         "all_data.to_csv(\"all_data.csv\", index=False)"
       ],
-      "id": "f96b4083",
+      "id": "821ff080",
       "execution_count": null,
       "outputs": []
     },
@@ -76,9 +77,9 @@
       "source": [
         "## 3. Exploratory Data Analysis and Insights\n",
         "\n",
-        "`all_data.csv` save amount of 12 files data set is now assigned to variable `df`. From this steps, all methods of exploration date (e.g. `.describe()`, `.info()`, ...) are implemented with following intepretation.\n"
+        "`all_data.csv` save amount of 12 files data set is now assigned to variable `df`. From this steps, all methods of exploration date (e.g. `.describe()`, `.info()`, ...) are implemented with following intepretation."
       ],
-      "id": "7da4b313"
+      "id": "083c97b3"
     },
     {
       "cell_type": "code",
@@ -89,7 +90,7 @@
         "df.describe()\n",
         "print(df.isnull().sum())"
       ],
-      "id": "7b162ace",
+      "id": "a0b87732",
       "execution_count": null,
       "outputs": []
     },
@@ -116,9 +117,9 @@
         "\n",
         "The data summary from the primary data interpretation shows shows no missing data from the six columns including 04 categorical data (OrderID, Product, Order Date, Purchase Address), 02 numerical data (Quantity Ordered, Price Each). Otherwise, the nulls values presents all over 6 columns and takes small proportion of values (0.2%).\n",
         "\n",
-        "The priority is to find rows of NAN values rows and watch over all numeric data columns. The visualization shows below.\n"
+        "The priority is to find rows of NAN values rows and watch over all numeric data columns. The visualization shows below."
       ],
-      "id": "093fb08c"
+      "id": "fbc4af75"
     },
     {
       "cell_type": "code",
@@ -134,7 +135,7 @@
         "    else:\n",
         "        print(\"No missing values to visualize.\")"
       ],
-      "id": "37944025",
+      "id": "d43d998c",
       "execution_count": null,
       "outputs": []
     },
@@ -142,9 +143,9 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt=\"The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps.\" fig-align=\"center.\"}\n"
+        "![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt=\"The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps.\" fig-align=\"center.\"}"
       ],
-      "id": "fe9c1424"
+      "id": "68899190"
     },
     {
       "cell_type": "code",
@@ -153,7 +154,7 @@
         "null_data = df[df.isnull().any(axis=1)]\n",
         "null_data.head()"
       ],
-      "id": "9c865cff",
+      "id": "0092ad2b",
       "execution_count": null,
       "outputs": []
     },
@@ -197,9 +198,9 @@
         "\n",
         "    `df = df.dropna()`\n",
         "\n",
-        "2.  **Format the 'Order Date' Column:** The `Order Date` column contains date and time information, which we need in a consistent datetime format. Some rows may have text instead of dates, so we filter those out first.\n"
+        "2.  **Format the 'Order Date' Column:** The `Order Date` column contains date and time information, which we need in a consistent datetime format. Some rows may have text instead of dates, so we filter those out first."
       ],
-      "id": "22b2cf67"
+      "id": "74ced407"
     },
     {
       "cell_type": "code",
@@ -213,7 +214,7 @@
         "# Convert 'Order Date' to datetime\n",
         "df['Order Date'] = pd.to_datetime(df['Order Date'])"
       ],
-      "id": "bcc3ee06",
+      "id": "fdc89c66",
       "execution_count": null,
       "outputs": []
     },
@@ -221,9 +222,9 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "3.  **Convert Columns to Correct Data Types:** Ensure `Quantity Ordered` and `Price Each` are numeric, as they may currently be strings due to initial data loading.\n"
+        "3.  **Convert Columns to Correct Data Types:** Ensure `Quantity Ordered` and `Price Each` are numeric, as they may currently be strings due to initial data loading."
       ],
-      "id": "700c429b"
+      "id": "36887fef"
     },
     {
       "cell_type": "code",
@@ -234,7 +235,7 @@
         "# Convert to numeric\n",
         "df[['Quantity Ordered', 'Price Each']] = df[['Quantity Ordered', 'Price Each']].apply(pd.to_numeric, errors='coerce')"
       ],
-      "id": "3398c98d",
+      "id": "809027f4",
       "execution_count": null,
       "outputs": []
     },
@@ -242,9 +243,9 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "4.  **Extract Month from 'Order Date':** We can extract the month from the `Order Date` column to analyze monthly sales patterns.\n"
+        "4.  **Extract Month from 'Order Date':** We can extract the month from the `Order Date` column to analyze monthly sales patterns."
       ],
-      "id": "592a3f11"
+      "id": "326f2a31"
     },
     {
       "cell_type": "code",
@@ -254,7 +255,7 @@
       "source": [
         "df['Month'] = df['Order Date'].dt.month"
       ],
-      "id": "31efc9aa",
+      "id": "b6f86b6e",
       "execution_count": null,
       "outputs": []
     },
@@ -262,9 +263,9 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "5.  **Create a City Column:** The `Purchase Address` column contains city and state information, which we can extract for location-based analysis. Using functions allows flexibility for complex address formats.\n"
+        "5.  **Create a City Column:** The `Purchase Address` column contains city and state information, which we can extract for location-based analysis. Using functions allows flexibility for complex address formats."
       ],
-      "id": "389b1163"
+      "id": "5fff9709"
     },
     {
       "cell_type": "code",
@@ -280,7 +281,7 @@
         "\n",
         "df['City'] = df['Purchase Address'].apply(lambda x: f\"{get_city(x)} ({get_state(x)})\")"
       ],
-      "id": "beeb7ce2",
+      "id": "382ef877",
       "execution_count": null,
       "outputs": []
     },
@@ -294,9 +295,9 @@
         "\n",
         "### a/ **What is the best months for sales?**\n",
         "\n",
-        "The question as for analysis on 'Sales' grouped by months. By creating a 'Sales' columns we report products of 'Quantity' and 'Price Each'.\n"
+        "The question as for analysis on 'Sales' grouped by months. By creating a 'Sales' columns we report products of 'Quantity' and 'Price Each'."
       ],
-      "id": "e71c4f8d"
+      "id": "3981fa9c"
     },
     {
       "cell_type": "code",
@@ -304,7 +305,7 @@
       "source": [
         "df['Sales'] = df['Quantity Ordered'] * df['Price Each']"
       ],
-      "id": "e358ade1",
+      "id": "effd41d7",
       "execution_count": null,
       "outputs": []
     },
@@ -312,9 +313,9 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for query and draw charts columns.\n"
+        "We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for query and draw charts columns."
       ],
-      "id": "e2b5056e"
+      "id": "65f5685d"
     },
     {
       "cell_type": "code",
@@ -328,7 +329,7 @@
         "plt.title('Total Sales by Month')\n",
         "plt.show()"
       ],
-      "id": "a2a31e8f",
+      "id": "21c41d55",
       "execution_count": null,
       "outputs": []
     },
@@ -356,9 +357,9 @@
         "\n",
         "### b/ **What city sold the most product?**\n",
         "\n",
-        "For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.\n"
+        "For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city."
       ],
-      "id": "86414a56"
+      "id": "b3bd9698"
     },
     {
       "cell_type": "code",
@@ -372,22 +373,19 @@
         "plt.title('Total Sales by City')\n",
         "plt.show()"
       ],
-      "id": "3808243a",
+      "id": "98e0e5d2",
       "execution_count": null,
       "outputs": []
     },
     {
-      "cell_type": "raw",
+      "cell_type": "markdown",
       "metadata": {},
       "source": [
         "<img src=\"/Output/Total_Sales_byCity.png\" alt=\"Total Sales By City\"/> *Figure 4: Total Sales By City*\n",
         "\n",
-        "**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers.\n",
-        "\n",
-        "\n",
-        "---"
+        "**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers."
       ],
-      "id": "468da902"
+      "id": "31433ede"
     }
   ],
   "metadata": {
