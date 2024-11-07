@@ -217,13 +217,73 @@ The sales data over the period from **January to December** reveals notable tren
 
 -   April to November showed a gradual decline, indicating a stabilization in demand. This may suggest a shift from high initial interest and purchases to more spontaneous or needs-based buying, as customers adjusted after initial seasonal spikes.
 
-**Key Observations**
+### b/ How can businesses leverage the insights from the monthly and quarterly sales analyses to optimize inventory planning and marketing strategies?
+**City Sales by Month**
+To understand the sales distribution across cities for each month, we can use a 100% stacked bar chart to display the proportion of total sales contributed by each city per month.
 
--   **Peak Sales in December:** The highest sales in December highlights a successful capitalizing on holiday shopping trends. This aligns with typical consumer behavior during this time, where year-end promotions boost spending.
--   **October Sale Spike:** A strong increase in October suggests that promotions were effective, attracting consumers looking for discounts ahead of a main season in year.
--   **Lower Mid-year Sales** The dip in sales from mid-year could indicate a reduction in consumer spending after an initial surge in the first quarter. This may reflect a natural leveling off, as the early months often see heightened consumer enthusiasm, which tapers as customers become more selective or budget-conscious later in the year.
+```{python}
+# Calculate monthly sales by city and normalize for 100% stacked bar
+city_sales_month_normalized = df.groupby(['Month', 'City'])['Sales'].sum().unstack()
+city_sales_month_normalized = city_sales_month_normalized.div(city_sales_month_normalized.sum(axis=1), axis=0)
 
-### b/ **What city sold the most product?**
+# Plot the monthly sales by city
+plt.figure(figsize=(14, 10))
+city_sales_month_normalized.plot(kind='bar', stacked=True, colormap='viridis')
+plt.title('Monthly Sales by City (Normalized)', fontsize=16)
+plt.xlabel('Month', fontsize=14)
+plt.ylabel('Percentage of Total Sales', fontsize=14)
+plt.legend(title='City', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.grid(False)
+plt.xticks(rotation=0, fontsize=12)
+plt.yticks(fontsize=12)
+plt.show()
+```
+**Insights from Monthly Sales**
+The above chart displays the proportion of each city's sales as a percentage of total monthly sales. This visualization can help identify:
+
+- **High-Performing Months for Each City:** By observing the bars, we can see months where certain cities (e.g., San Francisco, Los Angeles) dominate sales.
+- **Seasonal Trends:** Certain cities may perform better during specific months, indicating possible seasonality in consumer spending.
+
+**Quarterly Sales Analysis**
+Next, let's examine quarterly sales by city to understand the overall contribution of each city across quarters, with a focus on identifying the top-performing region in Q1 (Jan–Apr) and in the last three months of the year.
+
+```{python}
+# Add 'Quarter' column to data
+df['Quarter'] = df['Order Date'].dt.quarter
+
+# Calculate quarterly sales by city and normalize for 100% stacked bar
+city_sales_normalized = df.groupby(['Quarter', 'City'])['Sales'].sum().unstack()
+city_sales_normalized = city_sales_normalized.div(city_sales_normalized.sum(axis=1), axis=0)
+
+# Plot quarterly sales by city
+plt.figure(figsize=(12, 8))
+city_sales_normalized.plot(kind='area', stacked=True, colormap='Blues', alpha=0.85)
+plt.title('Quarterly Sales by City (Normalized)', fontsize=16)
+plt.xlabel('Quarter', fontsize=14)
+plt.ylabel('Percentage of Total Sales', fontsize=14)
+plt.legend(title='City', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.grid(False)
+plt.xticks(rotation=0, fontsize=12, ticks=[1, 2, 3, 4])
+plt.yticks(fontsize=12)
+plt.show()
+```
+
+**Insights from Quaterly Sales**
+- **Top-Performing Region in Q1:** The chart shows which city contributed the most to total sales in Q1 (Jan–Mar). This insight helps us understand which regions experience strong demand at the start of the year.
+- **Sales in the Last 3 Months:** Observing the fourth quarter (Oct–Dec) helps identify cities with significant sales contributions, useful for year-end planning and inventory management.
+
+### **Key Takeaways**
+
+-   **Peak Sales in December:** December recorded the highest sales volume, likely due to holiday season spending and effective year-end promotions. This peak highlights the importance of stock and promotional planning to maximize revenue during high-demand periods.
+-   **October Sale Spike:** A noticeable spike in October suggests successful promotional efforts, possibly attracting customers looking for early holiday deals. Businesses may consider launching targeted campaigns during this period to further boost sales.
+-   **Lower Mid-year Sales** Sales tend to decline gradually from April through November, indicating a stabilization in consumer demand. This period could benefit from targeted promotions to sustain engagement, encouraging needs-based or spontaneous purchases as customers' enthusiasm from early-year sales tapers off.
+-   **Monthly and Quarterly City Sales Patterns:**
+
+    - **High-Performing Months for Specific Cities:** By examining the distribution of sales across cities on a monthly basis, we can identify high-performing months for particular locations. For instance, some cities, like San Francisco and Los Angeles, may have stronger sales in specific months, hinting at localized seasonality in demand.
+    - **Top-Performing Regions in Q1 and Q4:** Analysis of quarterly data reveals the regions that perform best during Q1 (January–March) and the last quarter (October–December). This insight is valuable for planning region-specific inventory and marketing strategies to maximize regional strengths during these peak times.
+
+
+### c/ **What city sold the most product?**
 
 For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.
 
@@ -269,25 +329,12 @@ print(city_sales)
 
 -   **Low-Performing Cities**: Austin and Portland show the lowest sales figures, possibly due to smaller markets or differing economic conditions.
 
-**Key Insights for Top-Performing Cities**
+**Key Insights for Top-Performing Cities and Low-Performance Cities**
 
-- **San Francisco**:  With over $8 million in sales, San Francisco's high purchasing power, dense population, and tech-savvy market likely contribute to its dominance.
+- **San Francisco, Los Angeles, and New York City** are the top-performing cities, with San Francisco leading significantly with over $8 million in sales. These cities benefit from large, diverse populations, high purchasing power, and strong economic activity.
+- A**ustin and Portland** have the lowest sales figures, likely due to smaller markets or different economic conditions. These cities may represent growth opportunities with targeted marketing efforts.
 
-
-- **Los Angeles and New York City**: These cities benefit from large metropolitan areas and significant tourist activity, which boosts retail sales and creates consistent demand across various product categories.
-
-**Key Insights for Low-Performing Cities**
-
-- **Austin and Portland**: These cities show lower sales volumes, potentially due to their smaller market sizes and economic differences. This could be an opportunity for targeted marketing or expansion efforts to improve market penetration.
-
-**Regional Patterns**
-Analyzing regional trends reveals:
-
-- **Coastal vs. Inland Cities:** Coastal cities like San Francisco, Los Angeles, and New York City outperform inland cities, potentially due to higher population densities and diverse consumer demographics.
-- **Urban vs. Suburban Areas:** Higher sales in major urban centers suggest that population density and economic prosperity play crucial roles in driving demand.
-
-
-### c/ What is sales performance by quarter over cities?
+### d/ What is sales performance by quarter over cities?
 
 To gain deeper insight into sales trends, we analyzed the percentage change in sales for each city by quarter. This helps identify periods of growth or decline and spot seasonal trends.
 
@@ -300,9 +347,9 @@ quarter_sales_pct_change = city_sales.pct_change() * 100
 # Display the percentage change
 print(quarter_sales_pct_change)
 ````
-**Insights from Quarterly Sales Analysis**
-- **Growth Trends:** San Francisco and Los Angeles show steady growth across quarters, likely due to consistent demand and population density.
-- **Seasonal Declines:** Certain cities, like Portland and Austin, experience drops in specific quarters, potentially due to seasonal or economic factors affecting consumer spending patterns.
+**Insights from Quarterly Sales Trends Across Cities**
+- **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases.
+- **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.
 
 **Visualizing Quarterly Sales Change**
 The 100% stacked bar chart below displays the percentage change in sales for each city by quarter, highlighting growth or decline.
@@ -318,7 +365,7 @@ plt.grid(True, axis='y')
 plt.show()
 ````
 
-### d/ What products sales are prominent due to the cities sales?
+### e/ What products sales are prominent due to the cities sales?
 
 This section explores product demand across cities. By visualizing products purchased per Order ID by city, we can uncover city-specific preferences for particular products and categories.
 
@@ -335,12 +382,11 @@ plt.yticks(rotation=0)
 plt.show()
 ````
 
+**Key Insights for City-Specific Product Preferences**
+- **High-Demand Products in Key Cities:** Certain products see high demand in cities like San Francisco and Los Angeles, especially in categories such as electronics. This trend reflects the purchasing power and consumer interests of these cities.
+- **Low-Demand Products Across All Cities:** Some products show lower sales volumes across the board, indicating niche appeal ([Austin, TX]: monitors, dryer, washing machine; [Portland, OR]: laptop, phone). These items coud benefit from bundling strategies or targeted promotions to increase their visibility and appeal.
 
-**Key Insights**
-- **Product Preferences:** High intensity in certain cells indicates strong demand for specific products within certain cities. For instance, cities like San Francisco and Los Angeles have high purchases in categories like electronics, reflecting consumer trends and economic status.
-- **Low-Demand Products:** Certain products show low sales across all cities, suggesting niche appeal or limited market interest. Targeted promotions or bundling with popular items may improve visibility and sales.
-
-### e/ What insights can be drawn from the density plot of sales by city regarding sales distribution and city-specific spending patterns?
+### f/ What insights can be drawn from the density plot of sales by city regarding sales distribution and city-specific spending patterns?
 
 The density plot below illustrates the distribution of sales values across cities, highlighting cities with a wider range of purchase amounts.
 
@@ -352,6 +398,11 @@ plt.xlabel('Sales in USD')
 plt.ylabel('Density')
 plt.show()
 ```
-**Key Insights**
-- **Sales Distribution:** Cities like San Francisco and New York City display a broad range of sales values, possibly indicating a mix of high-value purchases and more frequent, lower-value purchases.
-- **City-Specific Spending Patterns:** Some cities show peaks at particular sales values, suggesting standard purchase behaviors or common price points among popular products.
+**Key Insights on Sales Distribution and Spending Patterns by City**
+- **Diverse Sales Ranges in Major Cities:** Cities like San Francisco and New York City exhibit a wide range of purchase amounts, which suggests a mix of high-value purchases and frequent, lower-value transactions.
+- **City-Specific Spending Peaks:** Some cities show concentrated sales at specific price points, suggesting common purchasing behaviors and popular price brackets. This insight can guide product pricing strategies to match city-specific spending habits.
+
+### **Key Takeaways**
+- **Growth Opportunities:** For low-performing cities such as Austin and Portland, targeted marketing campaigns and tailored promotions could help boost sales and tap into untapped markets.
+- **City-Specific Product Strategies:** Tailoring product offerings to match each city’s preferences, such as electronics in tech-oriented cities, can drive sales. Adjusting inventory and marketing plans based on seasonal demand fluctuations can help optimize sales, especially in cities with significant seasonal variability.
+- **Quarterly Insights for Inventory Planning:**  High-demand items should be well-stocked in top-performing cities, while niche products may require selective stocking or promotion strategies.
