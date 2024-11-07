@@ -77,7 +77,7 @@ Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` col
 `Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.
 
 | Column Name | Description |
-|-----------------------|------------------------------------------------|
+|-------------------------|----------------------------------------------|
 | `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |
 | `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |
 | `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |
@@ -205,11 +205,11 @@ plt.title('Total Sales by Month')
 plt.show()
 ```
 
-<img src="/Output/Total_Sales_ByMonths.png" alt="Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at nearly 5 million us dollar."/>*Figure 3: Total Sales By Month*
+<img src="/Output/Total_Sales_ByMonths.png" alt="Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at nearly 5 million us dollar."/> *Figure 3: Total Sales By Month*
 
 The sales data over the period from **January to December** reveals notable trends in overall sales performance showing **a steady increase in sales** over the year with several **seasonal spikes** in specific months. This pattern suggests growing customer engagement and effective sales strategies, especially during peak periods.
 
-**Monthly Higlights** Certain months stand out for their impact on sales performance:
+**Monthly Highlights** Certain months stand out for their impact on sales performance:
 
 -   **December** recorded the **highest sales volume**, likely due to the holiday season and year-end promotions, capturing increased consumer spending.
 
@@ -239,4 +239,81 @@ plt.show()
 
 <img src="/Output/Total_Sales_byCity.png" alt="Total Sales By City"/> *Figure 4: Total Sales By City*
 
-**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers.
+**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers:
+
+```{python}
+# Calculate total sales per city
+city_sales = df.groupby('City')['Sales'].sum().reset_index()
+
+# Display the total sales per city
+print(city_sales)
+```
+
+| City          | Sales              |
+|---------------|--------------------|
+| City          | Sales              |
+| Atlanta       | \$2,795,738.00     |
+| Austin        | \$1,819,582.00     |
+| Boston        | \$3,661,642.00     |
+| Dallas        | \$2,767,975.00     |
+| Los Angeles   | \$5,452,571.00     |
+| New York City | \$4,664,756.00     |
+| Portland      | \$2,321,016.00     |
+| San Francisco | **\$8,262,203.00** |
+| Seattle       | \$2,747,532.00     |
+
+: *Table 2: The calculation of the Sales by Cities*
+
+-   **Top-Performing Cities**: San Francisco, Los Angeles, and New York City lead in sales, with San Francisco surpassing $8 million, followed closely by Los Angeles and New York City.
+
+
+-   **Low-Performing Cities**: Austin and Portland show the lowest sales figures, possibly due to smaller markets or differing economic conditions.
+
+**Key Insights for Top-Performing Cities**
+
+- **San Francisco**:  With over $8 million in sales, San Francisco's high purchasing power, dense population, and tech-savvy market likely contribute to its dominance.
+
+
+- **Los Angeles and New York City**: These cities benefit from large metropolitan areas and significant tourist activity, which boosts retail sales and creates consistent demand across various product categories.
+
+**Key Insights for Low-Performing Cities**
+
+- **Austin and Portland**: These cities show lower sales volumes, potentially due to their smaller market sizes and economic differences. This could be an opportunity for targeted marketing or expansion efforts to improve market penetration.
+
+### Regional Patterns
+Analyzing regional trends reveals:
+
+- **Coastal vs. Inland Cities:** Coastal cities like San Francisco, Los Angeles, and New York City outperform inland cities, potentially due to higher population densities and diverse consumer demographics.
+- **Urban vs. Suburban Areas:** Higher sales in major urban centers suggest that population density and economic prosperity play crucial roles in driving demand.
+
+
+### Sales Performance by Quarter
+
+To gain deeper insight into sales trends, we analyzed the percentage change in sales for each city by quarter. This helps identify periods of growth or decline and spot seasonal trends.
+
+````{python}
+# Calculate the percentage change in sales for each quarter compared to the previous quarter
+df['Quarter'] = df['Order Date'].dt.quarter
+city_sales = df.groupby(['City','Quarter'])['Sales'].sum().unstack()
+quarter_sales_pct_change = city_sales.pct_change() * 100
+
+# Display the percentage change
+print(quarter_sales_pct_change)
+````
+**Insights from Quarterly Sales Analysis**
+- **Growth Trends:** San Francisco and Los Angeles show steady growth across quarters, likely due to consistent demand and population density.
+- **Seasonal Declines:** Certain cities, like Portland and Austin, experience drops in specific quarters, potentially due to seasonal or economic factors affecting consumer spending patterns.
+
+**Visualizing Quarterly Sales Change**
+The 100% stacked bar chart below displays the percentage change in sales for each city by quarter, highlighting growth or decline.
+
+````{python}
+plt.figure(figsize=(12, 8))
+quarter_sales_pct_change.div(100).plot(kind='bar', stacked=True, colormap='viridis', alpha=0.75)
+plt.title('Sales Percentage Change by City and Quarter')
+plt.xlabel('City')
+plt.ylabel('Percentage Change')
+plt.legend(title='Quarter', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.grid(True, axis='y')
+plt.show()
+````
