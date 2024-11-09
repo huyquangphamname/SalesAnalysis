@@ -20,7 +20,7 @@ crossref:
 
 Thi individual reports tracks the instructional video titled ["Solving real world data science tasks with Python Pandas!"](https://github.com/KeithGalli/Pandas-Data-Science-Tasks.git) by [Keith Galli](https://youtu.be/eMOA1pPVUc4?si=-UXWLdSFktCLWSh5). Through power of [Quarto](https://quarto.org/docs/visual-editor/vscode/). Utilizing the capabilities of Quarto, I present the final product of a story telling report designed to showcase practices and engage the audience seamlessly.
 
-In this 'Sales Data Analysis,' I apply foundational exploratory data skills in data science (using Python Pandas and Matplotlib) to follow the instructional material within a single *Jupyter notebook* file. The goal is to familiarize myself with **multiple files** of monthly records (*./Sales_Data*) and consolidate them into one **.csv **file. By learning through hands-on experience, I employ critical thinking and create a notebook that highlights significant insights while incorporating data visualization to impact the electronic retail sector.
+In this 'Sales Data Analysis,' I apply foundational exploratory data skills in data science (using Python Pandas and Matplotlib) to follow the instructional material within a single *Jupyter notebook* file. The goal is to familiarize myself with **multiple files** of monthly records (*./Sales_Data*) and consolidate them into one **.csv** file. By learning through hands-on experience, I employ critical thinking and create a notebook that highlights significant insights while incorporating data visualization to impact the electronic retail sector.
 
 ## 2. Data Overview
 
@@ -30,8 +30,7 @@ The data reveals an inverse relationship between 'Sale Quantity' and 'Price Each
 
 ![Figure 1: Subplot of price each items over the quantity of products in total](/Output/PriceQuantityComparision.png){fig-alt="A bar chart illustrating the number of orders per product with an overlaid line plot of average price for each item. The green bars represent quantity ordered, while the blue line indicates average price in dollars. This visualization helps identify popular items and their price points, illustrating that lower-priced items like batteries have higher sales volumes, while premium products like the MacBook Pro see fewer orders."}
 
-Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales.
-### a/ Data Description
+Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales. \### a/ Data Description
 
 The data sources depict set of data in 12 months of electrical stores named "Keith's SuperDuper cool electronics". The folder 'data' contains 12 separate `.csv` files each representing sales data from different stores across the months of the year.
 
@@ -70,6 +69,10 @@ print(df.isnull().sum())
 ```
 
 {{\<RangeIndex: 186850 entries, 0 to 186849 Data columns (total 6 columns): \# Column Non-Null Count Dtype --- ------ -------------- ----- 0 Order ID 186305 non-null object 1 Product 186305 non-null object 2 Quantity Ordered 186305 non-null object 3 Price Each 186305 non-null object 4 Order Date 186305 non-null object 5 Purchase Address 186305 non-null object dtypes: object(6) memory usage: 8.6+ MB Order ID 545 Product 545 Quantity Ordered 545 Price Each 545 Order Date 545 Purchase Address 545 dtype: int64\>}}
+
+|Number of order # | Column | Non-null | Count | Dtype |
+|------------------|--------|----------|-------|-------| 
+|0                 | `Order ID` | 186,305 | non-null |object|
 
 Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` column present date and time. This data columns could help define the months for computation other combination of quantitative information. The 'Product' column contains existing name products ordered per purchase, which could be counted as sum methods to gather attribute of `Price Each`, `Quantity`.
 
@@ -418,10 +421,9 @@ plt.xticks(products, rotation='vertical')
 plt.show()
 ```
 
-![Figure Quantity Order by Products](/Output/order_QuantityProduct.png){ @fig-ProductQuantityOrdered }
-*Figure 5: Order Quantity by Products*
+![Figure Quantity Order by Products](/Output/order_QuantityProduct.png){ @fig-ProductQuantityOrdered } *Figure 5: Order Quantity by Products*
 
-````{python}
+```{python}
 # Referenced: https://stackoverflow.com/questions/14762181/adding-a-y-axis-label-to-secondary-y-axis-in-matplotlib
 
 # product_groups = df.groupby('Product')
@@ -441,7 +443,8 @@ ax2.set_ylabel('Price ($)', color='b')
 ax1.set_xticklabels(products, rotation='vertical', size=8)
 
 fig.show()
-````
+```
+
 ![Figure examining the relationship between price and quantity](/Output/dualAxisBarLinePlot.png){@fig-dualAxisBarAndLinePlot }
 
 *Figure 6: Combination plots to Quantity Orederd and Price Each*
@@ -450,7 +453,7 @@ The bar chart visualization of "Quantity Ordered by Product" highlights these hi
 
 For the products popularity, the another visualization of **scatterplot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
 
-````{python}
+```{python}
 # Scatter Plot with size of sales volumes
 order_product_sales = df.groupby(['Order ID', 'Product'])['Sales'].sum().reset_index()
 order_product_sales['Quantity Ordered'] = df.groupby(['Order ID', 'Product'])['Quantity Ordered'].sum().reset_index(drop=True)
@@ -465,7 +468,7 @@ plt.ylabel('Product')
 plt.xlabel('Sales in USD')
 plt.title('Sales per Order by Product (Size represents Quantity Ordered)')
 plt.show()
-````
+```
 
 ![Figure of Scatter Plot with Marker Size](/Output/scatterPlot_withSalesVolumnSize.png){Combine quantity ordered, sales per order, and color-coded sales values in a single view.}
 
