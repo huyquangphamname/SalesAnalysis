@@ -367,7 +367,9 @@ plt.show()
 
 ### e/ What products sales are prominent due to the cities sales?
 
-This section explores product demand across cities. By visualizing products purchased per Order ID by city, we can uncover city-specific preferences for particular products and categories.
+This section explores product demand across different categories and cities to identify popular products, understand regional preferences, and infrom inventory planning. By visualizing products purchased per Order ID by city, we can uncover city-specific preferences for particular products and categories. This includes examining sales data to determine top selling and low-selling products, observing consumer behavior trends, and making recommendations for inventory optimization by the region.
+
+In the following code, the analyse involve generating visualizations such as heatmap and pivot tables to illustrate product popularity by category and city.
 
 ````{python}
 # Plot the products purchased per order ID by city
@@ -383,7 +385,7 @@ plt.show()
 ````
 
 **Key Insights for City-Specific Product Preferences**
-- **High-Demand Products in Key Cities:** Certain products see high demand in cities like San Francisco and Los Angeles, especially in categories such as electronics. This trend reflects the purchasing power and consumer interests of these cities.
+- **High-Demand Products in Key Cities:** High-intensity areas in the heatmap reveal products with broad appeal and demand. Certain products see high demand in cities like San Francisco and Los Angeles, especially in categories such as electronics. This trend reflects the purchasing power and consumer interests of these cities.
 - **Low-Demand Products Across All Cities:** Some products show lower sales volumes across the board, indicating niche appeal ([Austin, TX]: monitors, dryer, washing machine; [Portland, OR]: laptop, phone). These items coud benefit from bundling strategies or targeted promotions to increase their visibility and appeal.
 
 ### f/ What insights can be drawn from the density plot of sales by city regarding sales distribution and city-specific spending patterns?
@@ -408,4 +410,20 @@ plt.show()
 - **Quarterly Insights for Inventory Planning:**  High-demand items should be well-stocked in top-performing cities, while niche products may require selective stocking or promotion strategies.
 
 ### g/ Which products are the most popular, and what common traits do they share?
-By analyzing sales data to find the highest-grossing products, we can uncover patterns, such as product type, price range, or seasonal appeal, that drive consumer interest.
+By analyzing total quantities ordered, we identified the most popular products. These items generally share traits such as **affordable pricing**, high **functionality**, or **seasonal appeal**. For instance, products that address common, everyday needs—like basic electronics or accessories—often have higher order volumes. Additionally, items that fall within moderate price ranges see consistent demand, indicating that affordability plays a role in popularity.
+
+````{python}
+## Quantity Ordered by Product
+product_groups = df.groupby('Product')
+quantity_ordered = product_groups['Quantity Ordered'].sum()
+
+products = [product for product, df in product_groups]
+plt.bar(products, quantity_ordered)
+plt.ylabel('Quantity Ordered')
+plt.xticks(products, rotation='vertical')
+plt.show()
+````
+
+![Figure Quantity Order by Products]{./}
+
+The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. This analysis suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
