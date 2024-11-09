@@ -18,29 +18,28 @@ crossref:
 
 ## 1. Introduction
 
-My individual reports keeps track the instruction video of ["Solving real world data science tasks with Python Pandas!"](https://github.com/KeithGalli/Pandas-Data-Science-Tasks.git) by [Keith Galli](https://youtu.be/eMOA1pPVUc4?si=-UXWLdSFktCLWSh5). Through power of [Quarto](https://quarto.org/docs/visual-editor/vscode/), I demonstrate the final work of a story telling report to show practices and engage to the audience in a seamless way.
+Thi individual reports tracks the instructional video titled ["Solving real world data science tasks with Python Pandas!"](https://github.com/KeithGalli/Pandas-Data-Science-Tasks.git) by [Keith Galli](https://youtu.be/eMOA1pPVUc4?si=-UXWLdSFktCLWSh5). Through power of [Quarto](https://quarto.org/docs/visual-editor/vscode/). Utilizing the capabilities of Quarto, I present the final product of a story telling report designed to showcase practices and engage the audience seamlessly.
 
-In this 'Data Sale Analysis', I use the basics understand from light exploratory data skills in data science practices (implemented Python Pandas and Matlotlib) to complete the walk through instruction in one Jupyter notebook file. The purpose is to get acquainted with **multiple files** of records by months (*./Sales_Data*) and integrating them in one **.csv** file. By learning based on doing, I use my critical thinking and design a notebook to represent the significant insights while providing data visualization to make impacts to the electric stores business.
+In this 'Sales Data Analysis,' I apply foundational exploratory data skills in data science (using Python Pandas and Matplotlib) to follow the instructional material within a single *Jupyter notebook* file. The goal is to familiarize myself with **multiple files** of monthly records (*./Sales_Data*) and consolidate them into one **.csv **file. By learning through hands-on experience, I employ critical thinking and create a notebook that highlights significant insights while incorporating data visualization to impact the electronic retail sector.
 
 ## 2. Data Overview
 
-In the competitive world of retail, data holds the key to understanding customer demands and optimizing sales strategies. Many information from data are critical for business decision-making such as trends of sales through periods of time, significant selling programs on specific products.
+In the competitive retail landscape, data is essential for understanding customer preferences and refining sales strategies. Various insights are critical for business decisions, including sales trends over time and standout products.
 
-The data nature witness the reverse relation between the 'Sale Quantiy' and 'Price Each', which makes the markets consumer more items like accessories rather than huge investment like laptops, electrics house holds. The relations of low-price product to their large proportion sales amount suggests the demonstration methods by comparing average price.
+The data reveals an inverse relationship between 'Sale Quantity' and 'Price Each', indicating that consumers tend to purchase more affordable items, such as accessories, rather than high-cost items like laptops and household electronics. The correlation between low-priced products and their higher sales volume suggests the effectiveness of comparing average prices.
 
-![Figure 1: Subplot of price each items over the quantity of products in total](/Output/PriceQuantityComparision.png){fig-alt="Bar chart showing the number of orders per product with an overlaid line plot of the average price for each product. The green bars represent the quantity ordered, while the blue line indicates the average price in dollars. This visualization helps identify popular items and their price points, showing that lower-priced items like batteries have higher sales volumes, whereas premium products like MacBook Pro have fewer orders."}
+![Figure 1: Subplot of price each items over the quantity of products in total](/Output/PriceQuantityComparision.png){fig-alt="A bar chart illustrating the number of orders per product with an overlaid line plot of average price for each item. The green bars represent quantity ordered, while the blue line indicates average price in dollars. This visualization helps identify popular items and their price points, illustrating that lower-priced items like batteries have higher sales volumes, while premium products like the MacBook Pro see fewer orders."}
 
-There are exceptions in this chart is the office products like MacBook Pro and ThinkPad, which reasonably explains the other impacts of customer demands or the investment cycle into new products. The example of uncover insights from sales data inspired by Keith Galli's tutorial is essentials of uncovering insights including peak periods, best-selling products, and potential strategies to optimize sales.
-
+Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales.
 ### a/ Data Description
 
-The data sources depict set of data in 12 months of electrical stores named "Keith's SuperDuper cool electronics". The folder 'data' includes 12 separated `.csv` files for which present the sales data at different stores in a month in that year.
+The data sources depict set of data in 12 months of electrical stores named "Keith's SuperDuper cool electronics". The folder 'data' contains 12 separate `.csv` files each representing sales data from different stores across the months of the year.
 
 ### b/ Data Loading
 
-In the video, the initial data integration created a one unified `.csv` file containing 12 sales data collections by various months in a year. The merging data from each month in sales data implements read files end with `.csv`. The reason was provided by the author/youtuber is to create an independent place have abundant data for analyzing in details.
+In the video, the initial data integration resulted in a single unified `.csv` file that combines the 12 months of sales data. The merging process reads files ending with `.csv`. The author/youtuber's rationale is to create a comprehensive dataset for detailed analysis.
 
-One more important practice is to `import` very handling libraries.
+An important practice involves importing the necessary libraries.
 
 ```{python}
 import os
@@ -61,7 +60,7 @@ all_data.to_csv("all_data.csv", index=False)
 
 ## 3. Exploratory Data Analysis and Insights
 
-`all_data.csv` save amount of 12 files data set is now assigned to variable `df`. From this steps, all methods of exploration date (e.g. `.describe()`, `.info()`, ...) are implemented with following intepretation.
+The `all_data.csv`, now assigned to the variable `df`, contains a compilation of 12 files. At this stage, all exploratory data methods (e.g. `.describe()`, `.info()`, ...) are applied with following intepretations.
 
 ```{python}
 df = pd.read_csv("all_data.csv")
@@ -445,7 +444,11 @@ fig.show()
 ````
 ![Figure examining the relationship between price and quantity](/Output/dualAxisBarLinePlot.png){@fig-dualAxisBarAndLinePlot }
 
-The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. For the products popularity, the another visualization of **scatterplot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
+*Figure 6: Combination plots to Quantity Orederd and Price Each*
+
+The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. Products with very high prices may still generate considerable sales revenue but see fewer orders.
+
+For the products popularity, the another visualization of **scatterplot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
 
 ````{python}
 # Scatter Plot with size of sales volumes
@@ -465,5 +468,11 @@ plt.show()
 ````
 
 ![Figure of Scatter Plot with Marker Size](/Output/scatterPlot_withSalesVolumnSize.png){Combine quantity ordered, sales per order, and color-coded sales values in a single view.}
+
+*Figure 7: Sales per Order by Product*
+
+This scatter plot provides a clear relationship between sales revenue and quanity ordered for each product.
+
+**Key Takeaways Product Popularity**
 
 ### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
