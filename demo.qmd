@@ -425,6 +425,6 @@ plt.xticks(products, rotation='vertical')
 plt.show()
 ````
 
-![Figure Quantity Order by Products]{./}
+![Figure Quantity Order by Products](/Output/order_QuantityProduct.png)
 
 The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. This analysis suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
