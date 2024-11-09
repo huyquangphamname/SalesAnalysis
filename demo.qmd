@@ -446,3 +446,24 @@ fig.show()
 ![Figure examining the relationship between price and quantity](/Output/dualAxisBarLinePlot.png){@fig-dualAxisBarAndLinePlot }
 
 The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. For the products popularity, the another visualization of **scatterplot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
+
+````{python}
+# Scatter Plot with size of sales volumes
+order_product_sales = df.groupby(['Order ID', 'Product'])['Sales'].sum().reset_index()
+order_product_sales['Quantity Ordered'] = df.groupby(['Order ID', 'Product'])['Quantity Ordered'].sum().reset_index(drop=True)
+print(order_product_sales.head())
+
+# Calculate the size of the markers based on the quantity ordered
+order_product_sales['Size'] = order_product_sales['Quantity Ordered'].astype(float)
+
+fig, ax = plt.subplots(figsize=(10, 6))
+scatter = ax.scatter(order_product_sales['Sales'], order_product_sales['Product'], s=order_product_sales['Size']*400, c=order_product_sales['Sales'], cmap='viridis', edgecolor='w', linewidth=0.25)
+plt.ylabel('Product')
+plt.xlabel('Sales in USD')
+plt.title('Sales per Order by Product (Size represents Quantity Ordered)')
+plt.show()
+````
+
+![Figure of Scatter Plot with Marker Size](/Output/scatterPlot_withSalesVolumnSize.png){Combine quantity ordered, sales per order, and color-coded sales values in a single view.}
+
+### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
