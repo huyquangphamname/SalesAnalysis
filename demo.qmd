@@ -387,6 +387,7 @@ plt.show()
 **Key Insights for City-Specific Product Preferences**
 - **High-Demand Products in Key Cities:** High-intensity areas in the heatmap reveal products with broad appeal and demand. Certain products see high demand in cities like San Francisco and Los Angeles, especially in categories such as electronics. This trend reflects the purchasing power and consumer interests of these cities.
 - **Low-Demand Products Across All Cities:** Some products show lower sales volumes across the board, indicating niche appeal ([Austin, TX]: monitors, dryer, washing machine; [Portland, OR]: laptop, phone). These items coud benefit from bundling strategies or targeted promotions to increase their visibility and appeal.
+- **Consumer Preferences:** There's a noticeable preference for practical and essential items. Shifts toward eco-friendly or sustainable products may be emerging.
 
 ### f/ What insights can be drawn from the density plot of sales by city regarding sales distribution and city-specific spending patterns?
 
