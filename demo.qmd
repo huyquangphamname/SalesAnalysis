@@ -145,7 +145,7 @@ df.dropna(axis=0)
 
 ### b/ Clean Up the Data
 
-\``{python} df = df.dropna(how='all') df.head()`
+`{python} df = df.dropna(how='all') df.head()`
 
 <div>
 
@@ -369,7 +369,9 @@ quarter_sales_pct_change = city_sales.pct_change() * 100
 print(quarter_sales_pct_change)
 ```
 
-**Insights from Quarterly Sales Trends Across Cities** - **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases. - **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.
+**Insights from Quarterly Sales Trends Across Cities**
+- **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases.
+- **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.
 
 **Visualizing Quarterly Sales Change** The 100% stacked bar chart below displays the percentage change in sales for each city by quarter, highlighting growth or decline.
 
