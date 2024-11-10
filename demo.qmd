@@ -430,7 +430,7 @@ plt.show()
 
 ### g/ Which products are the most popular, and what common traits do they share?
 
-By analyzing total quantities ordered, we identified the most popular products. These items generally share traits such as **affordable pricing**, high **functionality**, or **seasonal appeal**. For instance, products that address common, everyday needs—like basic electronics or accessories—often have higher order volumes. Additionally, items that fall within moderate price ranges see consistent demand, indicating that affordability plays a role in popularity.
+By analyzing total quantities ordered, we identified the most popular products. These items generally share traits such as **affordable pricing**, high **functionality**, or **seasonal appeal**. For instance, products that address common, everyday needs—like basic electronics or accessories—often have higher order volumes.
 
 ```{python}
 ## Quantity Ordered by Product
@@ -445,6 +445,12 @@ plt.show()
 ```
 
 ![Figure Quantity Order by Products](/Output/order_QuantityProduct.png){ @fig-ProductQuantityOrdered } *Figure 5: Order Quantity by Products*
+
+The bar chart visualization of "Quantity Ordered by Product" highlights high-demand items, showing that consumer preferences lean on specific group of attributes belong to products with assumption of balanced price-to-value ratio.
+
+### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
+
+Examining top-sellers by total sales revenue reveals a preference for products that balance price with perceived value. 
 
 ```{python}
 # Referenced: https://stackoverflow.com/questions/14762181/adding-a-y-axis-label-to-secondary-y-axis-in-matplotlib
@@ -501,4 +507,3 @@ This scatter plot provides a clear relationship between sales revenue and quanit
 
 **Key Takeaways Product Popularity**
 
-### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
