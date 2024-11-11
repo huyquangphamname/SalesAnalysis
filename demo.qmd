@@ -68,28 +68,21 @@ df.describe()
 print(df.isnull().sum())
 ```
 
-{{\<RangeIndex: 186850 entries, 0 to 186849 Data columns (total 6 columns): \# Column Non-Null Count Dtype --- ------ -------------- ----- 
-0 Order ID 186305 non-null object 
-1 Product 186305 non-null object 
-2 Quantity Ordered 186305 non-null object 
-3 Price Each 186305 non-null object 
-4 Order Date 186305 non-null object 
-5 Purchase Address 186305 non-null object 
-dtypes: object(6) memory usage: 8.6+ MB Order ID 545 Product 545 Quantity Ordered 545 Price Each 545 Order Date 545 Purchase Address 545 dtype: int64\>}}
+{{\<RangeIndex: 186850 entries, 0 to 186849 Data columns (total 6 columns): \# Column Non-Null Count Dtype --- ------ -------------- ----- 0 Order ID 186305 non-null object 1 Product 186305 non-null object 2 Quantity Ordered 186305 non-null object 3 Price Each 186305 non-null object 4 Order Date 186305 non-null object 5 Purchase Address 186305 non-null object dtypes: object(6) memory usage: 8.6+ MB Order ID 545 Product 545 Quantity Ordered 545 Price Each 545 Order Date 545 Purchase Address 545 dtype: int64\>}}
 
-| Number of order \# | Column     | Non-null | Count    | Dtype  |
-|--------------------|------------|----------|----------|--------|
-| 0                  | `Order ID` | 186,305  | non-null | object |
-|-----|------------|---------|----------|--------|
-| 0   | `Product` | 186,305 | non-null | object |
-|-----|------------|---------|----------|--------|
-| 0   | `Quantity Ordered` | 186,305 | non-null | object |
-|-----|------------|---------|----------|--------|
-| 0   | `Order ID` | 186,305 | non-null | object |
-|-----|------------|---------|----------|--------|
-| 0   | `Order ID` | 186,305 | non-null | object |
-|-----|------------|---------|----------|--------|
-| 0   | `Order ID` | 186,305 | non-null | object |
+| Number of order \# | Column             | Non-null  | Count      | Dtype    |
+|--------------------|--------------------|-----------|------------|----------|
+| 0                  | `Order ID`         | 186,305   | non-null   | object   |
+| -----              | ------------       | --------- | ---------- | -------- |
+| 0                  | `Product`          | 186,305   | non-null   | object   |
+| -----              | ------------       | --------- | ---------- | -------- |
+| 0                  | `Quantity Ordered` | 186,305   | non-null   | object   |
+| -----              | ------------       | --------- | ---------- | -------- |
+| 0                  | `Order ID`         | 186,305   | non-null   | object   |
+| -----              | ------------       | --------- | ---------- | -------- |
+| 0                  | `Order ID`         | 186,305   | non-null   | object   |
+| -----              | ------------       | --------- | ---------- | -------- |
+| 0                  | `Order ID`         | 186,305   | non-null   | object   |
 
 Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` column present date and time. This data columns could help define the months for computation other combination of quantitative information. The 'Product' column contains existing name products ordered per purchase, which could be counted as sum methods to gather attribute of `Price Each`, `Quantity`.
 
@@ -122,8 +115,7 @@ else:
     print("No missing values to visualize.")
 ```
 
-![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt="The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps." fig-align="center."}
-*Figure 2: Heatmap Visualizing Missing Values in Dataset*
+![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt="The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps." fig-align="center."} *Figure 2: Heatmap Visualizing Missing Values in Dataset*
 
 ```{python}
 null_data = df[df.isnull().any(axis=1)]
@@ -167,7 +159,7 @@ After dropping rows with all null values, we proceed with the following steps to
 
 ```{python}
  df = df.dropna()
- ```
+```
 
 2.  **Format the 'Order Date' Column:** The `Order Date` column contains date and time information, which we need in a consistent datetime format. Some rows may have text instead of dates, so we filter those out first.
 
@@ -369,9 +361,7 @@ quarter_sales_pct_change = city_sales.pct_change() * 100
 print(quarter_sales_pct_change)
 ```
 
-**Insights from Quarterly Sales Trends Across Cities**
-- **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases.
-- **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.
+**Insights from Quarterly Sales Trends Across Cities** - **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases. - **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.
 
 **Visualizing Quarterly Sales Change** The 100% stacked bar chart below displays the percentage change in sales for each city by quarter, highlighting growth or decline.
 
@@ -450,7 +440,7 @@ The bar chart visualization of "Quantity Ordered by Product" highlights high-dem
 
 ### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
 
-Examining top-sellers by total sales revenue reveals a preference for products that balance price with perceived value. 
+Examining top-sellers by total sales revenue reveals a preference for products that **balance price with perceived value**. High-revenue items, even if not the most frequently purchased, often have attributes that enhance their appeal—such as brand reputation, special features, or unique functionalities that justify a higher price point.
 
 ```{python}
 # Referenced: https://stackoverflow.com/questions/14762181/adding-a-y-axis-label-to-secondary-y-axis-in-matplotlib
@@ -505,5 +495,30 @@ plt.show()
 
 This scatter plot provides a clear relationship between sales revenue and quanity ordered for each product.
 
-**Key Takeaways Product Popularity**
+**Key Takeaways Product Popularity** Attributes Driving Demand:
 
+-   **Affordability:** Frequently purchased items tend to be within moderate price ranges, aligning with consumer preferences for accessible pricing.
+-   **Quality Brand Names:** Products from trusted brands with positive reputations tend to perform well, as consumers often value reliability and brand assurance.
+-   **Seasonal Relevance**: Certain items, such as gifts or seasonal electronics, see surges during specific periods, indicating that timely product availability boosts demand.
+
+By understanding these patterns, we can optimize inventory for popular items, explore promotional campaigns for low-selling products, and consider price adjustments to maximize product appeal. Additionally, **peak shopping hours** (based on order timestamps) reveal potential windows for targeted marketing, further enhancing sales potential.
+
+```{python}
+# Add hour column
+df['Hour'] = pd.to_datetime(df['Order Date']).dt.hour
+df['Minute'] = pd.to_datetime(df['Order Date']).dt.minute
+df['Count'] = 1
+df.head()
+
+keys = [pair for pair, df in df.groupby(['Hour'])]
+
+plt.plot(keys, df.groupby(['Hour']).count()['Count'])
+plt.xticks([key[0] for key in keys])
+plt.grid()
+plt.show()
+
+```
+
+![Figure Quanity Ordered by Time](/Output/order_QuantityProduct.png){fig-alt="Peaking shopping hours show the graph of order quantity variate by hours and have reach two top sales at 12 a.m and 07 p.m", @fig-Ordered-Quantity-by-Hour}
+
+@fig-Order-Quantity-by-Hour

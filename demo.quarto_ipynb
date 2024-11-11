@@ -47,7 +47,7 @@
         "\n",
         "An important practice involves importing the necessary libraries.\n"
       ],
-      "id": "8aae98ae"
+      "id": "4f82067d"
     },
     {
       "cell_type": "code",
@@ -68,7 +68,7 @@
         "\n",
         "all_data.to_csv(\"all_data.csv\", index=False)"
       ],
-      "id": "f14ba204",
+      "id": "0a286d25",
       "execution_count": null,
       "outputs": []
     },
@@ -80,7 +80,7 @@
         "\n",
         "The `all_data.csv`, now assigned to the variable `df`, contains a compilation of 12 files. At this stage, all exploratory data methods (e.g. `.describe()`, `.info()`, ...) are applied with following intepretations.\n"
       ],
-      "id": "f92b5435"
+      "id": "7947b42a"
     },
     {
       "cell_type": "code",
@@ -91,7 +91,7 @@
         "df.describe()\n",
         "print(df.isnull().sum())"
       ],
-      "id": "8d4629ed",
+      "id": "3e1e2e30",
       "execution_count": null,
       "outputs": []
     },
@@ -141,7 +141,7 @@
         "\n",
         "The priority is to find rows of NAN values rows and watch over all numeric data columns. The visualization shows below.\n"
       ],
-      "id": "9662965b"
+      "id": "31bb57f3"
     },
     {
       "cell_type": "code",
@@ -157,7 +157,7 @@
         "else:\n",
         "    print(\"No missing values to visualize.\")"
       ],
-      "id": "77e7546a",
+      "id": "350a37e9",
       "execution_count": null,
       "outputs": []
     },
@@ -168,7 +168,7 @@
         "![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt=\"The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps.\" fig-align=\"center.\"}\n",
         "*Figure 2: Heatmap Visualizing Missing Values in Dataset*\n"
       ],
-      "id": "222d2fd4"
+      "id": "333fe27e"
     },
     {
       "cell_type": "code",
@@ -178,7 +178,7 @@
         "null_data.head()\n",
         "df.dropna(axis=0)"
       ],
-      "id": "6d34937e",
+      "id": "e85a9c5e",
       "execution_count": null,
       "outputs": []
     },
@@ -200,7 +200,7 @@
         "\n",
         "### b/ Clean Up the Data\n",
         "\n",
-        "\\``{python} df = df.dropna(how='all') df.head()`\n",
+        "`{python} df = df.dropna(how='all') df.head()`\n",
         "\n",
         "<div>\n",
         "\n",
@@ -220,7 +220,7 @@
         "\n",
         "1.  **Delete Remaining NaN Values:** Rows with NaN values in critical columns, like `Quantity Ordered` and `Price Each`, can skew our calculations. Here, we delete any rows that still contain NaN values.\n"
       ],
-      "id": "36d5d660"
+      "id": "9f18d829"
     },
     {
       "cell_type": "code",
@@ -285,7 +285,7 @@
         "```{python}\n",
         "df['Sales'] = df['Quantity Ordered'] * df['Price Each']"
       ],
-      "id": "84d3dda3",
+      "id": "97ab5a9b",
       "execution_count": null,
       "outputs": []
     },
@@ -295,7 +295,7 @@
       "source": [
         "We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for query and draw charts columns.\n"
       ],
-      "id": "1ce0be66"
+      "id": "036dd025"
     },
     {
       "cell_type": "code",
@@ -309,7 +309,7 @@
         "plt.title('Total Sales by Month')\n",
         "plt.show()"
       ],
-      "id": "54ab4d32",
+      "id": "77be1fa3",
       "execution_count": null,
       "outputs": []
     },
@@ -333,7 +333,7 @@
         "\n",
         "**City Sales by Month** To understand the sales distribution across cities for each month, we can use a 100% stacked bar chart to display the proportion of total sales contributed by each city per month.\n"
       ],
-      "id": "95a51d43"
+      "id": "0e7ca4d7"
     },
     {
       "cell_type": "code",
@@ -355,7 +355,7 @@
         "plt.yticks(fontsize=12)\n",
         "plt.show()"
       ],
-      "id": "d4af206b",
+      "id": "c9486dc3",
       "execution_count": null,
       "outputs": []
     },
@@ -370,7 +370,7 @@
         "\n",
         "**Quarterly Sales Analysis** Next, let's examine quarterly sales by city to understand the overall contribution of each city across quarters, with a focus on identifying the top-performing region in Q1 (Jan–Apr) and in the last three months of the year.\n"
       ],
-      "id": "ef53f0fd"
+      "id": "ac8ca7fa"
     },
     {
       "cell_type": "code",
@@ -395,7 +395,7 @@
         "plt.yticks(fontsize=12)\n",
         "plt.show()"
       ],
-      "id": "c8b9c6fa",
+      "id": "71bbb996",
       "execution_count": null,
       "outputs": []
     },
@@ -422,7 +422,7 @@
         "\n",
         "For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.\n"
       ],
-      "id": "f52267e9"
+      "id": "d083c4b5"
     },
     {
       "cell_type": "code",
@@ -436,7 +436,7 @@
         "plt.title('Total Sales by City')\n",
         "plt.show()"
       ],
-      "id": "15d8a739",
+      "id": "51e953dd",
       "execution_count": null,
       "outputs": []
     },
@@ -448,7 +448,7 @@
         "\n",
         "**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers:\n"
       ],
-      "id": "5b01f179"
+      "id": "2bc0954f"
     },
     {
       "cell_type": "code",
@@ -460,7 +460,7 @@
         "# Display the total sales per city\n",
         "print(city_sales)"
       ],
-      "id": "eed8e84f",
+      "id": "974ec100",
       "execution_count": null,
       "outputs": []
     },
@@ -496,7 +496,7 @@
         "\n",
         "To gain deeper insight into sales trends, we analyzed the percentage change in sales for each city by quarter. This helps identify periods of growth or decline and spot seasonal trends.\n"
       ],
-      "id": "f19a8113"
+      "id": "8b7f9000"
     },
     {
       "cell_type": "code",
@@ -510,7 +510,7 @@
         "# Display the percentage change\n",
         "print(quarter_sales_pct_change)"
       ],
-      "id": "8346987b",
+      "id": "ce6a33ea",
       "execution_count": null,
       "outputs": []
     },
@@ -518,11 +518,13 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "**Insights from Quarterly Sales Trends Across Cities** - **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases. - **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.\n",
+        "**Insights from Quarterly Sales Trends Across Cities**\n",
+        "- **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases.\n",
+        "- **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.\n",
         "\n",
         "**Visualizing Quarterly Sales Change** The 100% stacked bar chart below displays the percentage change in sales for each city by quarter, highlighting growth or decline.\n"
       ],
-      "id": "7e4a28ad"
+      "id": "6861de82"
     },
     {
       "cell_type": "code",
@@ -537,7 +539,7 @@
         "plt.grid(True, axis='y')\n",
         "plt.show()"
       ],
-      "id": "ce4e0ba8",
+      "id": "28c68f61",
       "execution_count": null,
       "outputs": []
     },
@@ -551,7 +553,7 @@
         "\n",
         "In the following code, the analyse involve generating visualizations such as heatmap and pivot tables to illustrate product popularity by category and city.\n"
       ],
-      "id": "0431eadb"
+      "id": "48a61a84"
     },
     {
       "cell_type": "code",
@@ -568,7 +570,7 @@
         "plt.yticks(rotation=0)\n",
         "plt.show()"
       ],
-      "id": "abb8e7bc",
+      "id": "33c5581f",
       "execution_count": null,
       "outputs": []
     },
@@ -582,7 +584,7 @@
         "\n",
         "The density plot below illustrates the distribution of sales values across cities, highlighting cities with a wider range of purchase amounts.\n"
       ],
-      "id": "0332418d"
+      "id": "6b4e966b"
     },
     {
       "cell_type": "code",
@@ -595,7 +597,7 @@
         "plt.ylabel('Density')\n",
         "plt.show()"
       ],
-      "id": "d9f911bc",
+      "id": "7cc52ba4",
       "execution_count": null,
       "outputs": []
     },
@@ -613,9 +615,9 @@
         "\n",
         "### g/ Which products are the most popular, and what common traits do they share?\n",
         "\n",
-        "By analyzing total quantities ordered, we identified the most popular products. These items generally share traits such as **affordable pricing**, high **functionality**, or **seasonal appeal**. For instance, products that address common, everyday needs—like basic electronics or accessories—often have higher order volumes. Additionally, items that fall within moderate price ranges see consistent demand, indicating that affordability plays a role in popularity.\n"
+        "By analyzing total quantities ordered, we identified the most popular products. These items generally share traits such as **affordable pricing**, high **functionality**, or **seasonal appeal**. For instance, products that address common, everyday needs—like basic electronics or accessories—often have higher order volumes.\n"
       ],
-      "id": "18b924aa"
+      "id": "ae87443a"
     },
     {
       "cell_type": "code",
@@ -631,7 +633,7 @@
         "plt.xticks(products, rotation='vertical')\n",
         "plt.show()"
       ],
-      "id": "ebbb538d",
+      "id": "84ac19b3",
       "execution_count": null,
       "outputs": []
     },
@@ -639,9 +641,15 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "![Figure Quantity Order by Products](/Output/order_QuantityProduct.png){ @fig-ProductQuantityOrdered } *Figure 5: Order Quantity by Products*\n"
+        "![Figure Quantity Order by Products](/Output/order_QuantityProduct.png){ @fig-ProductQuantityOrdered } *Figure 5: Order Quantity by Products*\n",
+        "\n",
+        "The bar chart visualization of \"Quantity Ordered by Product\" highlights high-demand items, showing that consumer preferences lean on specific group of attributes belong to products with assumption of balanced price-to-value ratio.\n",
+        "\n",
+        "### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?\n",
+        "\n",
+        "Examining top-sellers by total sales revenue reveals a preference for products that **balance price with perceived value**. High-revenue items, even if not the most frequently purchased, often have attributes that enhance their appeal—such as brand reputation, special features, or unique functionalities that justify a higher price point.\n"
       ],
-      "id": "41c5c1b1"
+      "id": "516b813d"
     },
     {
       "cell_type": "code",
@@ -667,7 +675,7 @@
         "\n",
         "fig.show()"
       ],
-      "id": "a7cc8329",
+      "id": "72aa3737",
       "execution_count": null,
       "outputs": []
     },
@@ -683,7 +691,7 @@
         "\n",
         "For the products popularity, the another visualization of **scatterplot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.\n"
       ],
-      "id": "cec038af"
+      "id": "89d4a0c2"
     },
     {
       "cell_type": "code",
@@ -704,7 +712,7 @@
         "plt.title('Sales per Order by Product (Size represents Quantity Ordered)')\n",
         "plt.show()"
       ],
-      "id": "b5884aaa",
+      "id": "6f6073a1",
       "execution_count": null,
       "outputs": []
     },
@@ -719,10 +727,46 @@
         "This scatter plot provides a clear relationship between sales revenue and quanity ordered for each product.\n",
         "\n",
         "**Key Takeaways Product Popularity**\n",
+        "Attributes Driving Demand:\n",
         "\n",
-        "### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?"
+        "- **Affordability:** Frequently purchased items tend to be within moderate price ranges, aligning with consumer preferences for accessible pricing.\n",
+        "- **Quality Brand Names:** Products from trusted brands with positive reputations tend to perform well, as consumers often value reliability and brand assurance.\n",
+        "- **Seasonal Relevance**: Certain items, such as gifts or seasonal electronics, see surges during specific periods, indicating that timely product availability boosts demand.\n",
+        "\n",
+        "By understanding these patterns, we can optimize inventory for popular items, explore promotional campaigns for low-selling products, and consider price adjustments to maximize product appeal. Additionally, **peak shopping hours** (based on order timestamps) reveal potential windows for targeted marketing, further enhancing sales potential.\n"
       ],
-      "id": "fb480d38"
+      "id": "25b58c96"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Add hour column\n",
+        "df['Hour'] = pd.to_datetime(df['Order Date']).dt.hour\n",
+        "df['Minute'] = pd.to_datetime(df['Order Date']).dt.minute\n",
+        "df['Count'] = 1\n",
+        "df.head()\n",
+        "\n",
+        "keys = [pair for pair, df in df.groupby(['Hour'])]\n",
+        "\n",
+        "plt.plot(keys, df.groupby(['Hour']).count()['Count'])\n",
+        "plt.xticks([key[0] for key in keys])\n",
+        "plt.grid()\n",
+        "plt.show()"
+      ],
+      "id": "e0d67b87",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure Quanity Ordered by Time](/Output/order_QuantityProduct.png){fig-alt=\"Peaking shopping hours show the graph of order quantity variate by hours and have reach two top sales at 12 a.m and 07 p.m\", @fig-Ordered-Quantity-by-Hour}\n",
+        "\n",
+        "*@fig-Order-Quantity-by-Hour*"
+      ],
+      "id": "20159983"
     }
   ],
   "metadata": {
