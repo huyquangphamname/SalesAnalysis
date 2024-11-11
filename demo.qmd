@@ -26,11 +26,16 @@ In this 'Sales Data Analysis,' I apply foundational exploratory data skills in d
 
 In the competitive retail landscape, data is essential for understanding customer preferences and refining sales strategies. Various insights are critical for business decisions, including sales trends over time and standout products.
 
-The data reveals an inverse relationship between 'Sale Quantity' and 'Price Each', indicating that consumers tend to purchase more affordable items, such as accessories, rather than high-cost items like laptops and household electronics. The correlation between low-priced products and their higher sales volume suggests the effectiveness of comparing average prices.
+```{=html}
+<!-- The data reveals an inverse relationship between 'Sale Quantity' and 'Price Each', indicating that consumers tend to purchase more affordable items, such as accessories, rather than high-cost items like laptops and household electronics. The correlation between low-priced products and their higher sales volume suggests the effectiveness of comparing average prices.
 
 ![Figure 1: Subplot of price each items over the quantity of products in total](/Output/PriceQuantityComparision.png){fig-alt="A bar chart illustrating the number of orders per product with an overlaid line plot of average price for each item. The green bars represent quantity ordered, while the blue line indicates average price in dollars. This visualization helps identify popular items and their price points, illustrating that lower-priced items like batteries have higher sales volumes, while premium products like the MacBook Pro see fewer orders."}
 
-Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales. \### a/ Data Description
+Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales.
+-->
+```
+
+### a/ Data Description
 
 The data sources depict set of data in 12 months of electrical stores named "Keith's SuperDuper cool electronics". The folder 'data' contains 12 separate `.csv` files each representing sales data from different stores across the months of the year.
 
@@ -68,26 +73,21 @@ df.describe()
 print(df.isnull().sum())
 ```
 
-| Number of order \# | Column             | Non-null  | Count      | Dtype    |
-|--------------------|--------------------|-----------|------------|----------|
-| 0                  | `Order ID`         | 186,305   | non-null   | object   |
-| -----              | ------------       | --------- | ---------- | -------- |
-| 0                  | `Product`          | 186,305   | non-null   | object   |
-| -----              | ------------       | --------- | ---------- | -------- |
-| 0                  | `Quantity Ordered` | 186,305   | non-null   | object   |
-| -----              | ------------       | --------- | ---------- | -------- |
-| 0                  | `Order ID`         | 186,305   | non-null   | object   |
-| -----              | ------------       | --------- | ---------- | -------- |
-| 0                  | `Order ID`         | 186,305   | non-null   | object   |
-| -----              | ------------       | --------- | ---------- | -------- |
-| 0                  | `Order ID`         | 186,305   | non-null   | object   |
+| Number of order \# | Column             | Non-null | Count    | Dtype  |
+|--------------------|--------------------|----------|----------|--------|
+| 1                  | `Order ID`         | 186,305  | non-null | object |
+| 2                  | `Product`          | 186,305  | non-null | object |
+| 3                  | `Quantity Ordered` | 186,305  | non-null | object |
+| 4                  | `Order ID`         | 186,305  | non-null | object |
+| 5                  | `Order ID`         | 186,305  | non-null | object |
+| 6                  | `Order ID`         | 186,305  | non-null | object |
 
 Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` column present date and time. This data columns could help define the months for computation other combination of quantitative information. The 'Product' column contains existing name products ordered per purchase, which could be counted as sum methods to gather attribute of `Price Each`, `Quantity`.
 
 `Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.
 
 | Column Name | Description |
-|--------------------------|----------------------------------------------|
+|------------|---------------------------------|
 | `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |
 | `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |
 | `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |
