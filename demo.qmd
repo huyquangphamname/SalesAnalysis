@@ -73,21 +73,21 @@ df.describe()
 print(df.isnull().sum())
 ```
 
-| Number of order \# | Column             | Non-null | Count    | Dtype  |
-|--------------------|--------------------|----------|----------|--------|
-| 1                  | `Order ID`         | 186,305  | non-null | object |
-| 2                  | `Product`          | 186,305  | non-null | object |
-| 3                  | `Quantity Ordered` | 186,305  | non-null | object |
-| 4                  | `Order ID`         | 186,305  | non-null | object |
-| 5                  | `Order ID`         | 186,305  | non-null | object |
-| 6                  | `Order ID`         | 186,305  | non-null | object |
+| Number of order \# |       Column       | Non-null |  Count   | Dtype  |
+|:------------------:|:------------------:|:--------:|:--------:|:------:|
+|         1          |     `Order ID`     | 186,305  | non-null | object |
+|         2          |     `Product`      | 186,305  | non-null | object |
+|         3          | `Quantity Ordered` | 186,305  | non-null | object |
+|         4          |     `Order ID`     | 186,305  | non-null | object |
+|         5          |     `Order ID`     | 186,305  | non-null | object |
+|         6          |     `Order ID`     | 186,305  | non-null | object |
 
 Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` column present date and time. This data columns could help define the months for computation other combination of quantitative information. The 'Product' column contains existing name products ordered per purchase, which could be counted as sum methods to gather attribute of `Price Each`, `Quantity`.
 
 `Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.
 
 | Column Name | Description |
-|------------|---------------------------------|
+|---------------------|---------------------------------------------------|
 | `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |
 | `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |
 | `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |
@@ -135,7 +135,8 @@ df.dropna(axis=0)
 
 ### b/ Clean Up the Data
 
-`{python} df = df.dropna(how='all') df.head()`
+```{python}
+df = df.dropna(how='all') df.head()
 
 <div>
 
@@ -155,7 +156,6 @@ After dropping rows with all null values, we proceed with the following steps to
 
 1.  **Delete Remaining NaN Values:** Rows with NaN values in critical columns, like `Quantity Ordered` and `Price Each`, can skew our calculations. Here, we delete any rows that still contain NaN values.
 
-```{python}
  df = df.dropna()
 ```
 
