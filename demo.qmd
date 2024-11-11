@@ -438,7 +438,7 @@ plt.show()
 
 The bar chart visualization of "Quantity Ordered by Product" highlights high-demand items, showing that consumer preferences lean on specific group of attributes belong to products with assumption of balanced price-to-value ratio.
 
-**Sales Trends and Seasonal Changes (Normalized Quatitty by Months**
+**Sales Trends and Seasonal Changes (Normalized Quantitty by Months)**
 The products sales trends by months are provided insight about the common traits in products trends by season:
 
 ```{python}
@@ -465,8 +465,71 @@ plt.show()
 
 ![Figure Normalized Quantity of Products Ordered by Month](/Output/normQuantityProductsOrdByMonth.png){fig-alt="Plot show identification seasonal trends for each product. The insights drawn about common traits in product trends by season"}
 
-1. **Steady Demand Products:** Batteries (both AA and AAA) and **charging cables**, display a relatively consistent demand across all months. This indicates that they are essentials with steady demand throughout the year, likely because they are frequently used or replaced.
-2. **Seasonal Peak Products**: Products like **monitors** (20in, 27in, 34in) and **headpones** (Apple AirPods, Bose SoundSport) show peaks in specific months, which might correspond to holiday shopping seasons (e.g., December, October) or back-to-school periods (e.g., Feburary, September). These spikes suggest that comsumers often purchase these items as gifts or during times when they need new tech for school or work setups
+1. **Steady Demand Products:** **charging cables**, **batteries** show a relatively consistent demand across all months, reflecting their utility-based nature. They are essential, frequently used, or replacement items that customers buy regardless of the season.
+
+```{python}
+monitor = ['20in Monitor','27in FHD Monitor','34in Ultrawide Monitor']
+headphones = ['Apple Airpods Headphones','Bose SoundSport Headphones', 'Wired Headphones']
+battery = ['AA Bateries (4-pack)', 'AAA Batteries (4-pack)']
+chargingCable = ['Lightning Charging Cable', 'USB-C Charging Cable']
+
+# Plot the sales trends for each product group
+plt.figure(figsize=(12, 8))
+for product in monitor + headphones + battery + chargingCable:
+    product_trend = normalized_orders[normalized_orders['Product'] == product]
+    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], label=product, marker='o')
+
+# Plot other products in light gray
+other_products = set(normalized_orders['Product']) - set(monitor + headphones + battery + chargingCable)
+for product in other_products:
+    product_trend = normalized_orders[normalized_orders['Product'] == product]
+    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], color='lightgray', alpha=0.5)
+
+plt.title('Sales Trends for Monitors and Headphones and Batteries')
+plt.xlabel('Month')
+plt.ylabel('Normalized Quantity')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)
+plt.grid(True)
+plt.show()
+phones = ['iPhone', 'Google Phone']
+laptops = ['Macbook Pro Laptop', 'ThinkPad Laptop']
+```
+
+![Figure Sales Trends for Monitors and Headphones](/Output/monitorHeadphoneTopNorm.png){fig-alt="Consistent level of demand across all months"}
+
+2. **Seasonal Peak Products**: **headpones** (Apple AirPods, Bose SoundSport), **monitor** show increased demand in certain months, particularly around November and December, likely due to holiday shopping and gift-giving. Some peaks may also align with back-to-school periods (e.g., Feburary, October) as consumers set up or upgrade their tech for school or remote work.
+
+3. **No Seasonality and Brand Indentity:** Both the Phone and the laptops (MacBook Pro and ThinkPad) show steady demand without significant peaks or fluctuations, suggesting they are essential, utility-based items that consumers purchase throughout the year based on need rather than seasonality. For brand consumer, customer prefers products come from the Apple company more than alternative choice. This could effects on highlighting features, quality, or professional benefits, appealing to consumers’ consistent need for these items.
+
+```{python}
+phones = ['iPhone', 'Google Phone']
+laptops = ['Macbook Pro Laptop', 'ThinkPad Laptop']
+
+# Plot the sales trends for each product group
+plt.figure(figsize=(12, 8))
+for product in phones + laptops:
+    product_trend = normalized_orders[normalized_orders['Product'] == product]
+    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], label=product, marker='o')
+
+# Plot other products in light gray
+other_products = set(normalized_orders['Product']) - set(phones + laptops)
+for product in other_products:
+    product_trend = normalized_orders[normalized_orders['Product'] == product]
+    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], color='lightgray', alpha=0.5)
+
+plt.title('Sales Trends for Phones and Laptops')
+plt.xlabel('Month')
+plt.ylabel('Normalized Quantity')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)
+plt.grid(True)
+plt.show()
+```
+~[Figure Plot Sales Trends for Phones and Laptops](/Output/phoneLaptopNorm.png){fig-alt="the normalized sales trends for phones (iPhone and Google Phone) and laptops (MacBook Pro and ThinkPad) across each month"}
+
+**Key Insights Products Analyse and Common Traits**
+- **High-end, seasonal products** (monitors, premium headphones): High responsiveness to holiday seasons and promotions, driven by gift-giving and consumer upgrade behavior.
+- **Essential, consistent-demand products** (batteries, charging cables): Steady year-round demand with minimal seasonal influence, purchased out of necessity or regular replacement needs
+
 
 ### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
 
