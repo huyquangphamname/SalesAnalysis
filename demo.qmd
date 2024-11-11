@@ -18,7 +18,7 @@ crossref:
 
 ## 1. Introduction
 
-Thi individual reports tracks the instructional video titled ["Solving real world data science tasks with Python Pandas!"](https://github.com/KeithGalli/Pandas-Data-Science-Tasks.git) by [Keith Galli](https://youtu.be/eMOA1pPVUc4?si=-UXWLdSFktCLWSh5). Through power of [Quarto](https://quarto.org/docs/visual-editor/vscode/). Utilizing the capabilities of Quarto, I present the final product of a story telling report designed to showcase practices and engage the audience seamlessly.
+This individual reports tracks the instructional video titled ["Solving real world data science tasks with Python Pandas!"](https://github.com/KeithGalli/Pandas-Data-Science-Tasks.git) by [Keith Galli](https://youtu.be/eMOA1pPVUc4?si=-UXWLdSFktCLWSh5). Through power of [Quarto](https://quarto.org/docs/visual-editor/vscode/). Utilizing the capabilities of Quarto, I present the final product of a story telling report designed to showcase practices and engage the audience seamlessly.
 
 In this 'Sales Data Analysis,' I apply foundational exploratory data skills in data science (using Python Pandas and Matplotlib) to follow the instructional material within a single *Jupyter notebook* file. The goal is to familiarize myself with **multiple files** of monthly records (*./Sales_Data*) and consolidate them into one **.csv** file. By learning through hands-on experience, I employ critical thinking and create a notebook that highlights significant insights while incorporating data visualization to impact the electronic retail sector.
 
@@ -556,11 +556,11 @@ fig.show()
 
 ![Figure examining the relationship between price and quantity](/Output/dualAxisBarLinePlot.png){@fig-dualAxisBarAndLinePlot }
 
-*Figure 9: Combination plots to Quantity Orederd and Price Each*
+*Figure 9: Combination plots to Quantity Ordered and Price Each*
 
 The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. Products with very high prices may still generate considerable sales revenue but see fewer orders. Consumers lean towards products that meet their needs at affordable prices, while high-priced products may be less frequently ordered but still contribute to overall revenue.
 
-For the products popularity, the another visualization of **scatter plot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
+For the product popularity, the another visualization of **scatter plot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
 
 ```{python}
 # Scatter Plot with size of sales volumes
