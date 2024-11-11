@@ -438,6 +438,36 @@ plt.show()
 
 The bar chart visualization of "Quantity Ordered by Product" highlights high-demand items, showing that consumer preferences lean on specific group of attributes belong to products with assumption of balanced price-to-value ratio.
 
+**Sales Trends and Seasonal Changes (Normalized Quatitty by Months**
+The products sales trends by months are provided insight about the common traits in products trends by season:
+
+```{python}
+if 'Month' not in df.columns:
+    df['Month'] = df['Order Date'].dt.month
+
+orderProductByMonths = df.groupby(['Month', 'Product'])['Quantity Ordered'].sum().reset_index()
+# orderProductByMonths['Sum'] = orderProductByMonths.sum(axis=1)
+orderProductByMonths
+# Calculate the total quantity ordered per month
+totalQuantityByMonth = df.groupby('Month')['Quantity Ordered'].sum().reset_index()
+totalQuantityByMonth.rename(columns={'Quantity Ordered': 'Total Quantity Ordered'}, inplace=True)
+# Merge the monthly totals with the monthly product orders
+normalized_orders = pd.merge(orderProductByMonths, totalQuantityByMonth, on='Month')
+
+# Normalize the quantity ordered by the total quantity ordered per month
+normalized_orders['Normalized Quantity'] = normalized_orders['Quantity Ordered'] / normalized_orders['Total Quantity Ordered']
+size = normalized_orders['Normalized Quantity']/100
+sns.scatterplot(data=normalized_orders, x='Month', y='Normalized Quantity', hue='Product', palette='Dark2', size=size)
+plt.title('Normalized Quantity of Products Ordered by Month')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)
+plt.show()
+```
+
+![Figure Normalized Quantity of Products Ordered by Month](/Output/normQuantityProductsOrdByMonth.png){fig-alt="Plot show identification seasonal trends for each product. The insights drawn about common traits in product trends by season"}
+
+1. **Steady Demand Products:** Batteries (both AA and AAA) and **charging cables**, display a relatively consistent demand across all months. This indicates that they are essentials with steady demand throughout the year, likely because they are frequently used or replaced.
+2. **Seasonal Peak Products**: Products like **monitors** (20in, 27in, 34in) and **headpones** (Apple AirPods, Bose SoundSport) show peaks in specific months, which might correspond to holiday shopping seasons (e.g., December, October) or back-to-school periods (e.g., Feburary, September). These spikes suggest that comsumers often purchase these items as gifts or during times when they need new tech for school or work setups
+
 ### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
 
 Examining top-sellers by total sales revenue reveals a preference for products that **balance price with perceived value**. High-revenue items, even if not the most frequently purchased, often have attributes that enhance their appeal—such as brand reputation, special features, or unique functionalities that justify a higher price point.
@@ -468,7 +498,7 @@ fig.show()
 
 *Figure 6: Combination plots to Quantity Orederd and Price Each*
 
-The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. Products with very high prices may still generate considerable sales revenue but see fewer orders.
+The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. Products with very high prices may still generate considerable sales revenue but see fewer orders. Consumers lean towards products that meet their needs at affordable prices, while high-priced products may be less frequently ordered but still contribute to overall revenue.
 
 For the products popularity, the another visualization of **scatterplot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
 
@@ -493,7 +523,7 @@ plt.show()
 
 *Figure 7: Sales per Order by Product*
 
-This scatter plot provides a clear relationship between sales revenue and quanity ordered for each product.
+This scatter plot provides a clear relationship between sales revenue and quanity ordered for each product. Products positioned towards the right (higher sales) and with larger marker sizes are both high in sales revenue and quantity ordered. These items indicate top-performing products that generate significant revenue while also being highly ordered. High-selling products share position on the left with big marker sizes share traits like affordability, functionality, or promotion packages in seasonal appeal, caterting to consistent consumer demand. The larger-sized markers for certain products suggest that affordability or essential utility drives high order volumes.
 
 **Key Takeaways Product Popularity** Attributes Driving Demand:
 
@@ -519,6 +549,6 @@ plt.show()
 
 ```
 
-![Figure Quanity Ordered by Time](/Output/order_QuantityProduct.png){fig-alt="Peaking shopping hours show the graph of order quantity variate by hours and have reach two top sales at 12 a.m and 07 p.m", @fig-Ordered-Quantity-by-Hour}
+![Figure Quanity Ordered by Time](/Output/orderQuantityTime.png){fig-alt="Peaking shopping hours show the graph of order quantity variate by hours and have reach two top sales at 12 a.m and 07 p.m", @fig-Ordered-Quantity-by-Hour}
 
-@fig-Order-Quantity-by-Hour
+*Figure 7: Order Quantity by Hour*
