@@ -2,12 +2,12 @@
 title: "Sales Data Analysis Report"
 author: "Pham Quang Huy"
 date: "2024-10-31"
-format: pdf
-# format:
-#    html: 
-#      encoding: 'UTF-8'
-#      theme: style.css
-# jupyter: python3
+# format: pdf
+format:
+   html: 
+     encoding: 'UTF-8'
+     theme: style.css
+jupyter: python3
 crossref:
     lof-title: "List of Figures"
 ---
@@ -59,7 +59,7 @@ all_data.to_csv("all_data.csv", index=False)
 
 ## 3. Exploratory Data Analysis and Insights
 
-The `all_data.csv`, now assigned to the variable `df`, contains a compilation of 12 files. At this stage, all exploratory data methods (e.g. `.describe()`, `.info()`, ...) are applied with following intepretations.
+The `all_data.csv`, now assigned to the variable `df`, contains a compilation of 12 files. At this stage, all exploratory data methods (e.g. `.describe()`, `.info()`, ...) are applied with following interpretations.
 
 ```{python}
 df = pd.read_csv("all_data.csv")
@@ -67,8 +67,6 @@ df.info()
 df.describe()
 print(df.isnull().sum())
 ```
-
-{{\<RangeIndex: 186850 entries, 0 to 186849 Data columns (total 6 columns): \# Column Non-Null Count Dtype --- ------ -------------- ----- 0 Order ID 186305 non-null object 1 Product 186305 non-null object 2 Quantity Ordered 186305 non-null object 3 Price Each 186305 non-null object 4 Order Date 186305 non-null object 5 Purchase Address 186305 non-null object dtypes: object(6) memory usage: 8.6+ MB Order ID 545 Product 545 Quantity Ordered 545 Price Each 545 Order Date 545 Purchase Address 545 dtype: int64\>}}
 
 | Number of order \# | Column             | Non-null  | Count      | Dtype    |
 |--------------------|--------------------|-----------|------------|----------|
@@ -395,7 +393,7 @@ plt.yticks(rotation=0)
 plt.show()
 ```
 
-**Key Insights for City-Specific Product Preferences** - **High-Demand Products in Key Cities:** High-intensity areas in the heatmap reveal products with broad appeal and demand. Certain products see high demand in cities like San Francisco and Los Angeles, especially in categories such as electronics. This trend reflects the purchasing power and consumer interests of these cities. - **Low-Demand Products Across All Cities:** Some products show lower sales volumes across the board, indicating niche appeal (\[Austin, TX\]: monitors, dryer, washing machine; \[Portland, OR\]: laptop, phone). These items coud benefit from bundling strategies or targeted promotions to increase their visibility and appeal. - **Consumer Preferences:** There's a noticeable preference for practical and essential items. Shifts toward eco-friendly or sustainable products may be emerging.
+**Key Insights for City-Specific Product Preferences** - **High-Demand Products in Key Cities:** High-intensity areas in the heat-map reveal products with broad appeal and demand. Certain products see high demand in cities like San Francisco and Los Angeles, especially in categories such as electronics. This trend reflects the purchasing power and consumer interests of these cities. - **Low-Demand Products Across All Cities:** Some products show lower sales volumes across the board, indicating niche appeal (\[Austin, TX\]: monitors, dryer, washing machine; \[Portland, OR\]: laptop, phone). These items could benefit from bundling strategies or targeted promotions to increase their visibility and appeal. - **Consumer Preferences:** There's a noticeable preference for practical and essential items. Shifts toward eco-friendly or sustainable products may be emerging.
 
 ### f/ What insights can be drawn from the density plot of sales by city regarding sales distribution and city-specific spending patterns?
 
@@ -438,8 +436,7 @@ plt.show()
 
 The bar chart visualization of "Quantity Ordered by Product" highlights high-demand items, showing that consumer preferences lean on specific group of attributes belong to products with assumption of balanced price-to-value ratio.
 
-**Sales Trends and Seasonal Changes (Normalized Quantitty by Months)**
-The products sales trends by months are provided insight about the common traits in products trends by season:
+**Sales Trends and Seasonal Changes (Normalized Quantitty by Months)** The products sales trends by months are provided insight about the common traits in products trends by season:
 
 ```{python}
 if 'Month' not in df.columns:
@@ -463,10 +460,9 @@ plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)
 plt.show()
 ```
 
-![Figure Normalized Quantity of Products Ordered by Month](/Output/normQuantityProductsOrdByMonth.png){fig-alt="Plot show identification seasonal trends for each product. The insights drawn about common traits in product trends by season"}
-*Figure 6: Normalized Quantity of Products Ordered by Month*
+![Figure Normalized Quantity of Products Ordered by Month](/Output/normQuantityProductsOrdByMonth.png){fig-alt="Plot show identification seasonal trends for each product. The insights drawn about common traits in product trends by season"} *Figure 6: Normalized Quantity of Products Ordered by Month*
 
-1. **Steady Demand Products:** **charging cables**, **batteries** show a relatively consistent demand across all months, reflecting their utility-based nature. They are essential, frequently used, or replacement items that customers buy regardless of the season.
+1.  **Steady Demand Products:** **charging cables**, **batteries** show a relatively consistent demand across all months, reflecting their utility-based nature. They are essential, frequently used, or replacement items that customers buy regardless of the season.
 
 ```{python}
 monitor = ['20in Monitor','27in FHD Monitor','34in Ultrawide Monitor']
@@ -496,12 +492,11 @@ phones = ['iPhone', 'Google Phone']
 laptops = ['Macbook Pro Laptop', 'ThinkPad Laptop']
 ```
 
-![Figure Sales Trends for Monitors and Headphones](/Output/monitorHeadphoneTopNorm.png){fig-alt="Consistent level of demand across all months"}
-*Figure 7: Sales Trends for Monitors and Headphones and Batteries*
+![Figure Sales Trends for Monitors and Headphones](/Output/monitorHeadphoneTopNorm.png){fig-alt="Consistent level of demand across all months"} *Figure 7: Sales Trends for Monitors and Headphones and Batteries*
 
-2. **Seasonal Peak Products**: **headpones** (Apple AirPods, Bose SoundSport), **monitor** show increased demand in certain months, particularly around November and December, likely due to holiday shopping and gift-giving. Some peaks may also align with back-to-school periods (e.g., Feburary, October) as consumers set up or upgrade their tech for school or remote work.
+2.  **Seasonal Peak Products**: headphones (Apple AirPods, Bose SoundSport), **monitor** show increased demand in certain months, particularly around November and December, likely due to holiday shopping and gift-giving. Some peaks may also align with back-to-school periods (e.g., Feburary, October) as consumers set up or upgrade their tech for school or remote work.
 
-3. **No Seasonality and Brand Indentity:** Both the Phone and the laptops (MacBook Pro and ThinkPad) show steady demand without significant peaks or fluctuations, suggesting they are essential, utility-based items that consumers purchase throughout the year based on need rather than seasonality. For brand consumer, customer prefers products come from the Apple company more than alternative choice. This could effects on highlighting features, quality, or professional benefits, appealing to consumers’ consistent need for these items.
+3.  **No Seasonality and Brand Indentity:** Both the Phone and the laptops (MacBook Pro and ThinkPad) show steady demand without significant peaks or fluctuations, suggesting they are essential, utility-based items that consumers purchase throughout the year based on need rather than seasonality. For brand consumer, customer prefers products come from the Apple company more than alternative choice. This could effects on highlighting features, quality, or professional benefits, appealing to consumers’ consistent need for these items.
 
 ```{python}
 phones = ['iPhone', 'Google Phone']
@@ -526,14 +521,12 @@ plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)
 plt.grid(True)
 plt.show()
 ```
-~[Figure Plot Sales Trends for Phones and Laptops](/Output/phoneLaptopNorm.png){fig-alt="the normalized sales trends for phones (iPhone and Google Phone) and laptops (MacBook Pro and ThinkPad) across each month"}
+
+\~[Figure Plot Sales Trends for Phones and Laptops](/Output/phoneLaptopNorm.png){fig-alt="the normalized sales trends for phones (iPhone and Google Phone) and laptops (MacBook Pro and ThinkPad) across each month"}
 
 *Figure 8: Sales Trends for Phones and Laptops*
 
-**Key Insights Products Analyse and Common Traits**
-- **High-end, seasonal products** (monitors, premium headphones): High responsiveness to holiday seasons and promotions, driven by gift-giving and consumer upgrade behavior.
-- **Essential, consistent-demand products** (batteries, charging cables): Steady year-round demand with minimal seasonal influence, purchased out of necessity or regular replacement needs
-
+**Key Insights Products Analyse and Common Traits** - **High-end, seasonal products** (monitors, premium headphones): High responsiveness to holiday seasons and promotions, driven by gift-giving and consumer upgrade behavior. - **Essential, consistent-demand products** (batteries, charging cables): Steady year-round demand with minimal seasonal influence, purchased out of necessity or regular replacement needs
 
 ### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?
 
@@ -567,7 +560,7 @@ fig.show()
 
 The bar chart visualization of "Quantity Ordered by Product" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. Products with very high prices may still generate considerable sales revenue but see fewer orders. Consumers lean towards products that meet their needs at affordable prices, while high-priced products may be less frequently ordered but still contribute to overall revenue.
 
-For the products popularity, the another visualization of **scatterplot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
+For the products popularity, the another visualization of **scatter plot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.
 
 ```{python}
 # Scatter Plot with size of sales volumes
@@ -590,7 +583,7 @@ plt.show()
 
 *Figure 10: Sales per Order by Product*
 
-This scatter plot provides a clear relationship between sales revenue and quanity ordered for each product. Products positioned towards the right (higher sales) and with larger marker sizes are both high in sales revenue and quantity ordered. These items indicate top-performing products that generate significant revenue while also being highly ordered. High-selling products share position on the left with big marker sizes share traits like affordability, functionality, or promotion packages in seasonal appeal, caterting to consistent consumer demand. The larger-sized markers for certain products suggest that affordability or essential utility drives high order volumes.
+This scatter plot provides a clear relationship between sales revenue and quantity ordered for each product. Products positioned towards the right (higher sales) and with larger marker sizes are both high in sales revenue and quantity ordered. These items indicate top-performing products that generate significant revenue while also being highly ordered. High-selling products share position on the left with big marker sizes share traits like affordability, functionality, or promotion packages in seasonal appeal, catering to consistent consumer demand. The larger-sized markers for certain products suggest that affordability or essential utility drives high order volumes.
 
 **Key Takeaways Product Popularity** Attributes Driving Demand:
 
@@ -621,30 +614,38 @@ plt.show()
 *Figure 11: Order Quantity by Hour*
 
 ## 5. Business Recommendation
+
 ### A. Seasonal Promotion Strategies
-- **Peak Sales Periods:** Leverage the high sales volumes in December and October by planning targeted promotions and marketing campaigns around these times. Consider holiday-themed promotions, discounts, and special offers to attract more customers (e.g. Back-to-School)
-- **Seasonal Products:** Focus on promoting products that show seasonal spikes, such as electronics and gift items, during the holiday season to maximize sales.
+
+-   **Peak Sales Periods:** Leverage the high sales volumes in December and October by planning targeted promotions and marketing campaigns around these times. Consider holiday-themed promotions, discounts, and special offers to attract more customers (e.g. Back-to-School)
+-   **Seasonal Products:** Focus on promoting products that show seasonal spikes, such as electronics and gift items, during the holiday season to maximize sales.
 
 ### B. Product and Location Strategy
-- **Top-Performing Products:** Ensure that high-demand products, such as batteries and charging cables, are well-stocked, especially in top-performing cities like San Francisco, Los Angeles, and New York City.
-- **Expansion Opportunities:** Consider opening new stores or expanding marketing efforts in high-performing cities to capitalize on strong sales trends. For low-performing cities like Austin and Portland, targeted marketing campaigns could help boost sales.
+
+-   **Top-Performing Products:** Ensure that high-demand products, such as batteries and charging cables, are well-stocked, especially in top-performing cities like San Francisco, Los Angeles, and New York City.
+-   **Expansion Opportunities:** Consider opening new stores or expanding marketing efforts in high-performing cities to capitalize on strong sales trends. For low-performing cities like Austin and Portland, targeted marketing campaigns could help boost sales.
 
 ### C. Time-Based Advertising and Cross-Selling and Product Bundling
-- **High-Traffic Hours:** Schedule advertising and promotional activities around peak shopping hours, such as 12 PM and 7 PM, to increase customer engagement and drive sales.
-- **Product Bundles:** Create bundles for products frequently bought together, such as laptops with accessories or charging cables with batteries. This strategy can encourage higher average transaction values and improve customer satisfaction.
+
+-   **High-Traffic Hours:** Schedule advertising and promotional activities around peak shopping hours, such as 12 PM and 7 PM, to increase customer engagement and drive sales.
+-   **Product Bundles:** Create bundles for products frequently bought together, such as laptops with accessories or charging cables with batteries. This strategy can encourage higher average transaction values and improve customer satisfaction.
 
 ## 6. Conclusion
+
 ### A. Summary of Findings
-- **Sales Trends:** The analysis revealed a steady increase in sales throughout the year, with significant spikes in December and October. San Francisco, Los Angeles, and New York City emerged as top-performing cities.
-- **Product Demand:** High-demand products include laptops, charging cables, and batteries, while low-demand products may benefit from targeted promotions.
-- **Consumer Preferences:** Consumers prefer affordable, functional items, with seasonal products showing increased demand during specific months.
+
+-   **Sales Trends:** The analysis revealed a steady increase in sales throughout the year, with significant spikes in December and October. San Francisco, Los Angeles, and New York City emerged as top-performing cities.
+-   **Product Demand:** High-demand products include laptops, charging cables, and batteries, while low-demand products may benefit from targeted promotions.
+-   **Consumer Preferences:** Consumers prefer affordable, functional items, with seasonal products showing increased demand during specific months.
 
 ### B. Actionable Takakes
-- **Stock Management:** Ensure high-demand products are well-stocked during peak sales periods to avoid stockouts and maximize revenue.
-- **Targeted Promotions:** Implement targeted marketing campaigns in low-performing cities and during high-traffic hours to boost sales.
-- **Product Bundling:** Encourage higher transaction values by offering product bundles for frequently bought-together items.
+
+-   **Stock Management:** Ensure high-demand products are well-stocked during peak sales periods to avoid stockouts and maximize revenue.
+-   **Targeted Promotions:** Implement targeted marketing campaigns in low-performing cities and during high-traffic hours to boost sales.
+-   **Product Bundling:** Encourage higher transaction values by offering product bundles for frequently bought-together items.
 
 ### C. Future Steps
-- **Customer Demographics:** Investigate customer demographics to better understand purchasing behavior and tailor marketing strategies accordingly.
-- **Seasonal Trends:** Explore seasonal product trends in more detail to optimize inventory and marketing efforts.
-- **Social Media Sentiment:** Incorporate social media sentiment data to gauge customer opinions and preferences, informing product development and marketing strategies.
+
+-   **Customer Demographics:** Investigate customer demographics to better understand purchasing behavior and tailor marketing strategies accordingly.
+-   **Seasonal Trends:** Explore seasonal product trends in more detail to optimize inventory and marketing efforts.
+-   **Social Media Sentiment:** Incorporate social media sentiment data to gauge customer opinions and preferences, informing product development and marketing strategies.
