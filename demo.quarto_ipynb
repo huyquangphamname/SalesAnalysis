@@ -33,11 +33,18 @@
         "\n",
         "In the competitive retail landscape, data is essential for understanding customer preferences and refining sales strategies. Various insights are critical for business decisions, including sales trends over time and standout products.\n",
         "\n",
-        "The data reveals an inverse relationship between 'Sale Quantity' and 'Price Each', indicating that consumers tend to purchase more affordable items, such as accessories, rather than high-cost items like laptops and household electronics. The correlation between low-priced products and their higher sales volume suggests the effectiveness of comparing average prices.\n",
+        "\n",
+        "```{=html}\n",
+        "<!-- The data reveals an inverse relationship between 'Sale Quantity' and 'Price Each', indicating that consumers tend to purchase more affordable items, such as accessories, rather than high-cost items like laptops and household electronics. The correlation between low-priced products and their higher sales volume suggests the effectiveness of comparing average prices.\n",
         "\n",
         "![Figure 1: Subplot of price each items over the quantity of products in total](/Output/PriceQuantityComparision.png){fig-alt=\"A bar chart illustrating the number of orders per product with an overlaid line plot of average price for each item. The green bars represent quantity ordered, while the blue line indicates average price in dollars. This visualization helps identify popular items and their price points, illustrating that lower-priced items like batteries have higher sales volumes, while premium products like the MacBook Pro see fewer orders.\"}\n",
         "\n",
-        "Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales. \\### a/ Data Description\n",
+        "Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales.\n",
+        "-->\n",
+        "```\n",
+        "\n",
+        "\n",
+        "### a/ Data Description\n",
         "\n",
         "The data sources depict set of data in 12 months of electrical stores named \"Keith's SuperDuper cool electronics\". The folder 'data' contains 12 separate `.csv` files each representing sales data from different stores across the months of the year.\n",
         "\n",
@@ -47,7 +54,7 @@
         "\n",
         "An important practice involves importing the necessary libraries.\n"
       ],
-      "id": "b2e76791"
+      "id": "7a5fc4ee"
     },
     {
       "cell_type": "code",
@@ -68,7 +75,7 @@
         "\n",
         "all_data.to_csv(\"all_data.csv\", index=False)"
       ],
-      "id": "96bca7be",
+      "id": "5638e1dd",
       "execution_count": null,
       "outputs": []
     },
@@ -80,7 +87,7 @@
         "\n",
         "The `all_data.csv`, now assigned to the variable `df`, contains a compilation of 12 files. At this stage, all exploratory data methods (e.g. `.describe()`, `.info()`, ...) are applied with following interpretations.\n"
       ],
-      "id": "71c38411"
+      "id": "e116616c"
     },
     {
       "cell_type": "code",
@@ -91,7 +98,7 @@
         "df.describe()\n",
         "print(df.isnull().sum())"
       ],
-      "id": "7a6621c1",
+      "id": "02e73424",
       "execution_count": null,
       "outputs": []
     },
@@ -99,26 +106,21 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
-        "| Number of order \\# | Column             | Non-null  | Count      | Dtype    |\n",
-        "|--------------------|--------------------|-----------|------------|----------|\n",
-        "| 0                  | `Order ID`         | 186,305   | non-null   | object   |\n",
-        "| -----              | ------------       | --------- | ---------- | -------- |\n",
-        "| 0                  | `Product`          | 186,305   | non-null   | object   |\n",
-        "| -----              | ------------       | --------- | ---------- | -------- |\n",
-        "| 0                  | `Quantity Ordered` | 186,305   | non-null   | object   |\n",
-        "| -----              | ------------       | --------- | ---------- | -------- |\n",
-        "| 0                  | `Order ID`         | 186,305   | non-null   | object   |\n",
-        "| -----              | ------------       | --------- | ---------- | -------- |\n",
-        "| 0                  | `Order ID`         | 186,305   | non-null   | object   |\n",
-        "| -----              | ------------       | --------- | ---------- | -------- |\n",
-        "| 0                  | `Order ID`         | 186,305   | non-null   | object   |\n",
+        "| Number of order \\# |       Column       | Non-null |  Count   | Dtype  |\n",
+        "|:------------------:|:------------------:|:--------:|:--------:|:------:|\n",
+        "|         1          |     `Order ID`     | 186,305  | non-null | object |\n",
+        "|         2          |     `Product`      | 186,305  | non-null | object |\n",
+        "|         3          | `Quantity Ordered` | 186,305  | non-null | object |\n",
+        "|         4          |     `Order ID`     | 186,305  | non-null | object |\n",
+        "|         5          |     `Order ID`     | 186,305  | non-null | object |\n",
+        "|         6          |     `Order ID`     | 186,305  | non-null | object |\n",
         "\n",
         "Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` column present date and time. This data columns could help define the months for computation other combination of quantitative information. The 'Product' column contains existing name products ordered per purchase, which could be counted as sum methods to gather attribute of `Price Each`, `Quantity`.\n",
         "\n",
         "`Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.\n",
         "\n",
         "| Column Name | Description |\n",
-        "|--------------------------|----------------------------------------------|\n",
+        "|----------------------|-------------------------------------------------|\n",
         "| `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |\n",
         "| `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |\n",
         "| `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |\n",
@@ -132,7 +134,7 @@
         "\n",
         "The priority is to find rows of NAN values rows and watch over all numeric data columns. The visualization shows below.\n"
       ],
-      "id": "0cc2f192"
+      "id": "26fc8ef8"
     },
     {
       "cell_type": "code",
@@ -148,7 +150,7 @@
         "else:\n",
         "    print(\"No missing values to visualize.\")"
       ],
-      "id": "307ffcdd",
+      "id": "dc51a800",
       "execution_count": null,
       "outputs": []
     },
@@ -158,7 +160,7 @@
       "source": [
         "![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt=\"The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps.\" fig-align=\"center.\"} *Figure 2: Heatmap Visualizing Missing Values in Dataset*\n"
       ],
-      "id": "e9178c44"
+      "id": "9bb40898"
     },
     {
       "cell_type": "code",
@@ -168,7 +170,7 @@
         "null_data.head()\n",
         "df.dropna(axis=0)"
       ],
-      "id": "0bf44011",
+      "id": "3734fdd2",
       "execution_count": null,
       "outputs": []
     },
@@ -179,7 +181,7 @@
         "<div>\n",
         "\n",
         "|      | Order ID | Product | Quantity Ordered | Price Each | Order Date | Purchase Address |\n",
-        "|-----------|-----------|-----------|-----------|-----------|-----------|-----------|\n",
+        "|----------|----------|----------|----------|----------|----------|----------|\n",
         "| 264  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
         "| 648  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
         "| 680  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
@@ -188,9 +190,15 @@
         "\n",
         "</div>\n",
         "\n",
-        "### b/ Clean Up the Data\n",
-        "\n",
-        "`{python} df = df.dropna(how='all') df.head()`\n",
+        "### b/ Clean Up the Data\n"
+      ],
+      "id": "4a536863"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df = df.dropna(how='all') df.head()\n",
         "\n",
         "<div>\n",
         "\n",
@@ -208,17 +216,11 @@
         "\n",
         "#### Steps for Data Cleaning and Extract Data\n",
         "\n",
-        "1.  **Delete Remaining NaN Values:** Rows with NaN values in critical columns, like `Quantity Ordered` and `Price Each`, can skew our calculations. Here, we delete any rows that still contain NaN values.\n"
-      ],
-      "id": "d7339397"
-    },
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
+        "1.  **Delete Remaining NaN Values:** Rows with NaN values in critical columns, like `Quantity Ordered` and `Price Each`, can skew our calculations. Here, we delete any rows that still contain NaN values.\n",
+        "\n",
         " df = df.dropna()"
       ],
-      "id": "16c5264f",
+      "id": "c3176d21",
       "execution_count": null,
       "outputs": []
     },
@@ -228,7 +230,7 @@
       "source": [
         "2.  **Format the 'Order Date' Column:** The `Order Date` column contains date and time information, which we need in a consistent datetime format. Some rows may have text instead of dates, so we filter those out first.\n"
       ],
-      "id": "60d797bc"
+      "id": "4be33ffd"
     },
     {
       "cell_type": "code",
@@ -242,7 +244,7 @@
         "# Convert 'Order Date' to datetime\n",
         "df['Order Date'] = pd.to_datetime(df['Order Date'])"
       ],
-      "id": "abd4949e",
+      "id": "6eb86f0f",
       "execution_count": null,
       "outputs": []
     },
@@ -252,7 +254,7 @@
       "source": [
         "3.  **Convert Columns to Correct Data Types:** Ensure `Quantity Ordered` and `Price Each` are numeric, as they may currently be strings due to initial data loading.\n"
       ],
-      "id": "7a0a7f29"
+      "id": "9f877110"
     },
     {
       "cell_type": "code",
@@ -263,7 +265,7 @@
         "# Convert to numeric\n",
         "df[['Quantity Ordered', 'Price Each']] = df[['Quantity Ordered', 'Price Each']].apply(pd.to_numeric, errors='coerce')"
       ],
-      "id": "c9d6581d",
+      "id": "ef6b8408",
       "execution_count": null,
       "outputs": []
     },
@@ -273,7 +275,7 @@
       "source": [
         "4.  **Extract Month from 'Order Date':** We can extract the month from the `Order Date` column to analyze monthly sales patterns.\n"
       ],
-      "id": "58e5a3f1"
+      "id": "9d3316f8"
     },
     {
       "cell_type": "code",
@@ -283,7 +285,7 @@
       "source": [
         "df['Month'] = df['Order Date'].dt.month"
       ],
-      "id": "95e0463a",
+      "id": "8d647023",
       "execution_count": null,
       "outputs": []
     },
@@ -293,7 +295,7 @@
       "source": [
         "5.  **Create a City Column:** The `Purchase Address` column contains city and state information, which we can extract for location-based analysis. Using functions allows flexibility for complex address formats.\n"
       ],
-      "id": "df2d7cbb"
+      "id": "c639ea41"
     },
     {
       "cell_type": "code",
@@ -309,7 +311,7 @@
         "\n",
         "df['City'] = df['Purchase Address'].apply(lambda x: f\"{get_city(x)} ({get_state(x)})\")"
       ],
-      "id": "3c63c579",
+      "id": "8a207c6e",
       "execution_count": null,
       "outputs": []
     },
@@ -325,7 +327,7 @@
         "\n",
         "The question as for analysis on 'Sales' grouped by months. By creating a 'Sales' columns we report products of 'Quantity' and 'Price Each'.\n"
       ],
-      "id": "c4a5d97c"
+      "id": "62deee32"
     },
     {
       "cell_type": "code",
@@ -333,7 +335,7 @@
       "source": [
         "df['Sales'] = df['Quantity Ordered'] * df['Price Each']"
       ],
-      "id": "a30687d4",
+      "id": "3d6c941d",
       "execution_count": null,
       "outputs": []
     },
@@ -343,7 +345,7 @@
       "source": [
         "We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for query and draw charts columns.\n"
       ],
-      "id": "a08fb20b"
+      "id": "abe518ce"
     },
     {
       "cell_type": "code",
@@ -357,7 +359,7 @@
         "plt.title('Total Sales by Month')\n",
         "plt.show()"
       ],
-      "id": "3b8ad68a",
+      "id": "e059f44c",
       "execution_count": null,
       "outputs": []
     },
@@ -381,7 +383,7 @@
         "\n",
         "**City Sales by Month** To understand the sales distribution across cities for each month, we can use a 100% stacked bar chart to display the proportion of total sales contributed by each city per month.\n"
       ],
-      "id": "7f88ef31"
+      "id": "0ece7d21"
     },
     {
       "cell_type": "code",
@@ -403,7 +405,7 @@
         "plt.yticks(fontsize=12)\n",
         "plt.show()"
       ],
-      "id": "4ec0d5af",
+      "id": "37c1da79",
       "execution_count": null,
       "outputs": []
     },
@@ -418,7 +420,7 @@
         "\n",
         "**Quarterly Sales Analysis** Next, let's examine quarterly sales by city to understand the overall contribution of each city across quarters, with a focus on identifying the top-performing region in Q1 (Jan–Apr) and in the last three months of the year.\n"
       ],
-      "id": "9ba47e4f"
+      "id": "0affa873"
     },
     {
       "cell_type": "code",
@@ -443,7 +445,7 @@
         "plt.yticks(fontsize=12)\n",
         "plt.show()"
       ],
-      "id": "964409fe",
+      "id": "a395d4e3",
       "execution_count": null,
       "outputs": []
     },
@@ -470,7 +472,7 @@
         "\n",
         "For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.\n"
       ],
-      "id": "f3753ca9"
+      "id": "dbbd3b22"
     },
     {
       "cell_type": "code",
@@ -484,7 +486,7 @@
         "plt.title('Total Sales by City')\n",
         "plt.show()"
       ],
-      "id": "6dd158e6",
+      "id": "2f4a5544",
       "execution_count": null,
       "outputs": []
     },
@@ -496,7 +498,7 @@
         "\n",
         "**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers:\n"
       ],
-      "id": "55a1fbe5"
+      "id": "49a8376a"
     },
     {
       "cell_type": "code",
@@ -508,7 +510,7 @@
         "# Display the total sales per city\n",
         "print(city_sales)"
       ],
-      "id": "6fd37d11",
+      "id": "ed937998",
       "execution_count": null,
       "outputs": []
     },
@@ -544,7 +546,7 @@
         "\n",
         "To gain deeper insight into sales trends, we analyzed the percentage change in sales for each city by quarter. This helps identify periods of growth or decline and spot seasonal trends.\n"
       ],
-      "id": "6c38318d"
+      "id": "5a92014c"
     },
     {
       "cell_type": "code",
@@ -558,7 +560,7 @@
         "# Display the percentage change\n",
         "print(quarter_sales_pct_change)"
       ],
-      "id": "3b7e9f4f",
+      "id": "aca34b65",
       "execution_count": null,
       "outputs": []
     },
@@ -570,7 +572,7 @@
         "\n",
         "**Visualizing Quarterly Sales Change** The 100% stacked bar chart below displays the percentage change in sales for each city by quarter, highlighting growth or decline.\n"
       ],
-      "id": "2f2478af"
+      "id": "0d540a3d"
     },
     {
       "cell_type": "code",
@@ -585,7 +587,7 @@
         "plt.grid(True, axis='y')\n",
         "plt.show()"
       ],
-      "id": "3ccda9c6",
+      "id": "f09e3a02",
       "execution_count": null,
       "outputs": []
     },
@@ -599,7 +601,7 @@
         "\n",
         "In the following code, the analyse involve generating visualizations such as heatmap and pivot tables to illustrate product popularity by category and city.\n"
       ],
-      "id": "760d0766"
+      "id": "451929be"
     },
     {
       "cell_type": "code",
@@ -616,7 +618,7 @@
         "plt.yticks(rotation=0)\n",
         "plt.show()"
       ],
-      "id": "4f9e9ff7",
+      "id": "f4bcb858",
       "execution_count": null,
       "outputs": []
     },
@@ -630,7 +632,7 @@
         "\n",
         "The density plot below illustrates the distribution of sales values across cities, highlighting cities with a wider range of purchase amounts.\n"
       ],
-      "id": "7cf85218"
+      "id": "e2f95645"
     },
     {
       "cell_type": "code",
@@ -643,7 +645,7 @@
         "plt.ylabel('Density')\n",
         "plt.show()"
       ],
-      "id": "952ffb06",
+      "id": "26d4495e",
       "execution_count": null,
       "outputs": []
     },
@@ -663,7 +665,7 @@
         "\n",
         "By analyzing total quantities ordered, we identified the most popular products. These items generally share traits such as **affordable pricing**, high **functionality**, or **seasonal appeal**. For instance, products that address common, everyday needs—like basic electronics or accessories—often have higher order volumes.\n"
       ],
-      "id": "fa619644"
+      "id": "9cb85828"
     },
     {
       "cell_type": "code",
@@ -679,7 +681,7 @@
         "plt.xticks(products, rotation='vertical')\n",
         "plt.show()"
       ],
-      "id": "ca680a07",
+      "id": "9ba227c7",
       "execution_count": null,
       "outputs": []
     },
@@ -693,7 +695,7 @@
         "\n",
         "**Sales Trends and Seasonal Changes (Normalized Quantitty by Months)** The products sales trends by months are provided insight about the common traits in products trends by season:\n"
       ],
-      "id": "5a072d08"
+      "id": "e78fe09c"
     },
     {
       "cell_type": "code",
@@ -719,7 +721,7 @@
         "plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)\n",
         "plt.show()"
       ],
-      "id": "6927469a",
+      "id": "6432122d",
       "execution_count": null,
       "outputs": []
     },
@@ -731,7 +733,7 @@
         "\n",
         "1.  **Steady Demand Products:** **charging cables**, **batteries** show a relatively consistent demand across all months, reflecting their utility-based nature. They are essential, frequently used, or replacement items that customers buy regardless of the season.\n"
       ],
-      "id": "a6cbc23f"
+      "id": "a007b91d"
     },
     {
       "cell_type": "code",
@@ -763,7 +765,7 @@
         "phones = ['iPhone', 'Google Phone']\n",
         "laptops = ['Macbook Pro Laptop', 'ThinkPad Laptop']"
       ],
-      "id": "7ea7a8b3",
+      "id": "54e1822d",
       "execution_count": null,
       "outputs": []
     },
@@ -777,7 +779,7 @@
         "\n",
         "3.  **No Seasonality and Brand Indentity:** Both the Phone and the laptops (MacBook Pro and ThinkPad) show steady demand without significant peaks or fluctuations, suggesting they are essential, utility-based items that consumers purchase throughout the year based on need rather than seasonality. For brand consumer, customer prefers products come from the Apple company more than alternative choice. This could effects on highlighting features, quality, or professional benefits, appealing to consumers’ consistent need for these items.\n"
       ],
-      "id": "cd900fcc"
+      "id": "98f9a0fe"
     },
     {
       "cell_type": "code",
@@ -805,7 +807,7 @@
         "plt.grid(True)\n",
         "plt.show()"
       ],
-      "id": "52bd0648",
+      "id": "7ffc7ef0",
       "execution_count": null,
       "outputs": []
     },
@@ -823,7 +825,7 @@
         "\n",
         "Examining top-sellers by total sales revenue reveals a preference for products that **balance price with perceived value**. High-revenue items, even if not the most frequently purchased, often have attributes that enhance their appeal—such as brand reputation, special features, or unique functionalities that justify a higher price point.\n"
       ],
-      "id": "73ad164f"
+      "id": "e2e2aa93"
     },
     {
       "cell_type": "code",
@@ -849,7 +851,7 @@
         "\n",
         "fig.show()"
       ],
-      "id": "605aaf19",
+      "id": "9331b2db",
       "execution_count": null,
       "outputs": []
     },
@@ -865,7 +867,7 @@
         "\n",
         "For the product popularity, the another visualization of **scatter plot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.\n"
       ],
-      "id": "d4eebf0a"
+      "id": "40bad3ee"
     },
     {
       "cell_type": "code",
@@ -886,7 +888,7 @@
         "plt.title('Sales per Order by Product (Size represents Quantity Ordered)')\n",
         "plt.show()"
       ],
-      "id": "e6af919b",
+      "id": "ca463d5f",
       "execution_count": null,
       "outputs": []
     },
@@ -908,7 +910,7 @@
         "\n",
         "By understanding these patterns, we can optimize inventory for popular items, explore promotional campaigns for low-selling products, and consider price adjustments to maximize product appeal. Additionally, **peak shopping hours** (based on order timestamps) reveal potential windows for targeted marketing, further enhancing sales potential.\n"
       ],
-      "id": "54295f8e"
+      "id": "7efae450"
     },
     {
       "cell_type": "code",
@@ -927,7 +929,7 @@
         "plt.grid()\n",
         "plt.show()"
       ],
-      "id": "c15e5895",
+      "id": "82b2df3d",
       "execution_count": null,
       "outputs": []
     },
@@ -976,7 +978,7 @@
         "-   **Seasonal Trends:** Explore seasonal product trends in more detail to optimize inventory and marketing efforts.\n",
         "-   **Social Media Sentiment:** Incorporate social media sentiment data to gauge customer opinions and preferences, informing product development and marketing strategies."
       ],
-      "id": "d59bf237"
+      "id": "a8755c54"
     }
   ],
   "metadata": {
