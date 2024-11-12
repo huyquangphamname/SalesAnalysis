@@ -87,7 +87,7 @@ Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` col
 `Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.
 
 | Column Name | Description |
-|---------------------|---------------------------------------------------|
+|----------------------|-------------------------------------------------|
 | `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |
 | `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |
 | `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |
@@ -124,7 +124,7 @@ df.dropna(axis=0)
 <div>
 
 |      | Order ID | Product | Quantity Ordered | Price Each | Order Date | Purchase Address |
-|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+|----------|----------|----------|----------|----------|----------|----------|
 | 264  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |
 | 648  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |
 | 680  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |
