@@ -279,7 +279,7 @@ plt.xticks(rotation=0, fontsize=12, ticks=[1, 2, 3, 4])
 plt.yticks(fontsize=12)
 plt.show()
 ```
-
+![Quarterly Sales by City (Normalized)](/Output/quarterlySalesByCitiesPercentStack.png){fig-alt="Normalize the contribution to the over sales by cities"}
 **Insights from Quaterly Sales** - **Top-Performing Region in Q1:** The chart shows which city contributed the most to total sales in Q1 (Jan–Mar). This insight helps us understand which regions experience strong demand at the start of the year. - **Sales in the Last 3 Months:** Observing the fourth quarter (Oct–Dec) helps identify cities with significant sales contributions, useful for year-end planning and inventory management.
 
 ### **Key Takeaways of Sales Trends**
@@ -343,7 +343,7 @@ print(city_sales)
 **Key Insights for Top-Performing Cities and Low-Performance Cities**
 
 -   **San Francisco, Los Angeles, and New York City** are the top-performing cities, with San Francisco leading significantly with over \$8 million in sales. These cities benefit from large, diverse populations, high purchasing power, and strong economic activity.
--   A**ustin and Portland** have the lowest sales figures, likely due to smaller markets or different economic conditions. These cities may represent growth opportunities with targeted marketing efforts.
+-   **Austin and Portland** have the lowest sales figures, likely due to smaller markets or different economic conditions. These cities may represent growth opportunities with targeted marketing efforts.
 
 ### d/ What is sales performance by quarter over cities?
 
