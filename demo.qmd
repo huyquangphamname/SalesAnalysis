@@ -87,7 +87,7 @@ Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` col
 `Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.
 
 | Column Name | Description |
-|----------------------|-------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |
 | `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |
 | `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |
@@ -279,8 +279,8 @@ plt.xticks(rotation=0, fontsize=12, ticks=[1, 2, 3, 4])
 plt.yticks(fontsize=12)
 plt.show()
 ```
-![Quarterly Sales by City (Normalized)](/Output/quarterlySalesByCitiesPercentStack.png){fig-alt="Normalize the contribution to the over sales by cities"}
-**Insights from Quaterly Sales** - **Top-Performing Region in Q1:** The chart shows which city contributed the most to total sales in Q1 (Jan–Mar). This insight helps us understand which regions experience strong demand at the start of the year. - **Sales in the Last 3 Months:** Observing the fourth quarter (Oct–Dec) helps identify cities with significant sales contributions, useful for year-end planning and inventory management.
+
+![Quarterly Sales by City (Normalized)](/Output/quarterlySalesByCitiesPercentStack.png){fig-alt="Normalize the contribution to the over sales by cities"} **Insights from Quaterly Sales** - **Top-Performing Region in Q1:** The chart shows which city contributed the most to total sales in Q1 (Jan–Mar). This insight helps us understand which regions experience strong demand at the start of the year. - **Sales in the Last 3 Months:** Observing the fourth quarter (Oct–Dec) helps identify cities with significant sales contributions, useful for year-end planning and inventory management.
 
 ### **Key Takeaways of Sales Trends**
 
