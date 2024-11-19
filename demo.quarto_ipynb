@@ -1,0 +1,995 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Sales Data Analysis Report\"\n",
+        "author: \"Pham Quang Huy\"\n",
+        "date: \"2024-10-31\"\n",
+        "# format: pdf\n",
+        "format:\n",
+        "   html: \n",
+        "     encoding: 'UTF-8'\n",
+        "     theme: style.css\n",
+        "jupyter: python3\n",
+        "crossref:\n",
+        "    lof-title: \"List of Figures\"\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\\listoffigures\n",
+        "\n",
+        "# Sales Data Analysis Report\n",
+        "\n",
+        "## 1. Introduction\n",
+        "\n",
+        "This individual reports tracks the instructional video titled [\"Solving real world data science tasks with Python Pandas!\"](https://github.com/KeithGalli/Pandas-Data-Science-Tasks.git) by [Keith Galli](https://youtu.be/eMOA1pPVUc4?si=-UXWLdSFktCLWSh5). Through power of [Quarto](https://quarto.org/docs/visual-editor/vscode/). Utilizing the capabilities of Quarto, I present the final product of a story telling report designed to showcase practices and engage the audience seamlessly.\n",
+        "\n",
+        "In this 'Sales Data Analysis,' I apply foundational exploratory data skills in data science (using Python Pandas and Matplotlib) to follow the instructional material within a single *Jupyter notebook* file. The goal is to familiarize myself with **multiple files** of monthly records (*./Sales_Data*) and consolidate them into one **.csv** file. By learning through hands-on experience, I employ critical thinking and create a notebook that highlights significant insights while incorporating data visualization to impact the electronic retail sector.\n",
+        "\n",
+        "## 2. Data Overview\n",
+        "\n",
+        "In the competitive retail landscape, data is essential for understanding customer preferences and refining sales strategies. Various insights are critical for business decisions, including sales trends over time and standout products.\n",
+        "\n",
+        "\n",
+        "```{=html}\n",
+        "<!-- The data reveals an inverse relationship between 'Sale Quantity' and 'Price Each', indicating that consumers tend to purchase more affordable items, such as accessories, rather than high-cost items like laptops and household electronics. The correlation between low-priced products and their higher sales volume suggests the effectiveness of comparing average prices.\n",
+        "\n",
+        "![Figure 1: Subplot of price each items over the quantity of products in total](/Output/PriceQuantityComparision.png){fig-alt=\"A bar chart illustrating the number of orders per product with an overlaid line plot of average price for each item. The green bars represent quantity ordered, while the blue line indicates average price in dollars. This visualization helps identify popular items and their price points, illustrating that lower-priced items like batteries have higher sales volumes, while premium products like the MacBook Pro see fewer orders.\"}\n",
+        "\n",
+        "Exceptions in this chart include office products like the MacBook Pro and ThinkPad, which may reflect other factors influencing customer demand or the investment cycle in new products. The insights derived from the sales data, inspired by Keith Galli's tutorial, are crucial for uncovering trends such as peak sales periods, best-selling products, and strategies to enhance sales.\n",
+        "-->\n",
+        "```\n",
+        "\n",
+        "\n",
+        "### a/ Data Description\n",
+        "\n",
+        "The data sources depict set of data in 12 months of electrical stores named \"Keith's SuperDuper cool electronics\". The folder 'data' contains 12 separate `.csv` files each representing sales data from different stores across the months of the year.\n",
+        "\n",
+        "### b/ Data Loading\n",
+        "\n",
+        "In the video, the initial data integration resulted in a single unified `.csv` file that combines the 12 months of sales data. The merging process reads files ending with `.csv`. The author/youtuber's rationale is to create a comprehensive dataset for detailed analysis.\n",
+        "\n",
+        "An important practice involves importing the necessary libraries.\n"
+      ],
+      "id": "b979d350"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import os\n",
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "\n",
+        "path = \"./Sales_Data\"\n",
+        "files = [file for file in os.listdir(path) if file.endswith('.csv')]\n",
+        "\n",
+        "all_data = pd.DataFrame()\n",
+        "\n",
+        "for file in files:\n",
+        "    file_read = pd.read_csv(path + \"/\" + file)\n",
+        "    all_data = pd.concat([all_data, file_read])\n",
+        "\n",
+        "all_data.to_csv(\"all_data.csv\", index=False)"
+      ],
+      "id": "3e92bc85",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 3. Exploratory Data Analysis and Insights\n",
+        "\n",
+        "The `all_data.csv`, now assigned to the variable `df`, contains a compilation of 12 files. At this stage, all exploratory data methods (e.g. `.describe()`, `.info()`, ...) are applied with following interpretations.\n"
+      ],
+      "id": "26a44af2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df = pd.read_csv(\"all_data.csv\")\n",
+        "df.info()\n",
+        "df.describe()\n",
+        "print(df.isnull().sum())"
+      ],
+      "id": "c982f59c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "| Number of order \\# |       Column       | Non-null |  Count   | Dtype  |\n",
+        "|:------------------:|:------------------:|:--------:|:--------:|:------:|\n",
+        "|         1          |     `Order ID`     | 186,305  | non-null | object |\n",
+        "|         2          |     `Product`      | 186,305  | non-null | object |\n",
+        "|         3          | `Quantity Ordered` | 186,305  | non-null | object |\n",
+        "|         4          |     `Order ID`     | 186,305  | non-null | object |\n",
+        "|         5          |     `Order ID`     | 186,305  | non-null | object |\n",
+        "|         6          |     `Order ID`     | 186,305  | non-null | object |\n",
+        "\n",
+        "Data Frame (`df`) used for analysis compounds of 6 columns. The `Order Date` column present date and time. This data columns could help define the months for computation other combination of quantitative information. The 'Product' column contains existing name products ordered per purchase, which could be counted as sum methods to gather attribute of `Price Each`, `Quantity`.\n",
+        "\n",
+        "`Purchase Address` indicates delivery good destination. The integration of details show city, state, geographical identification. One the quote of purchase is recorded, the column `Order ID` assigned one code for the buyer order. In video, Keith has implemented the data count distinct for each `Order ID` to get the combination of good come together.\n",
+        "\n",
+        "| Column Name | Description |\n",
+        "|----------------------|-------------------------------------------------|\n",
+        "| `Order Date` | Represents the date and time of each order. Useful for extracting information like month, day, and hour. |\n",
+        "| `Product` | Contains the name of products ordered per purchase, allowing for counts and summaries of each product. |\n",
+        "| `Quantity Ordered` | Shows the quantity of each product ordered, used to compute total quantities and sales per product. |\n",
+        "| `Price Each` | Indicates the price of each product at the time of purchase, used for calculating total sales. |\n",
+        "| `Purchase Address` | Specifies the delivery address, including city, state, and other geographical identifiers. Useful for analyzing sales distribution by location. |\n",
+        "| `Order ID` | Unique identifier assigned to each order, which allows counting distinct orders and analyzing product combinations bought together. |\n",
+        "\n",
+        "### a/ Preprocessing Data\n",
+        "\n",
+        "The data summary from the primary data interpretation shows shows no missing data from the six columns including 04 categorical data (OrderID, Product, Order Date, Purchase Address), 02 numerical data (Quantity Ordered, Price Each). Otherwise, the nulls values presents all over 6 columns and takes small proportion of values (0.2%).\n",
+        "\n",
+        "The priority is to find rows of NAN values rows and watch over all numeric data columns. The visualization shows below.\n"
+      ],
+      "id": "c780c2d1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "## Visualize missing values\n",
+        "\n",
+        "import seaborn as sns\n",
+        "\n",
+        "if df.isnull().values.any(): \n",
+        "    numeric_df = df.apply(pd.to_numeric, errors='coerce')\n",
+        "    sns.heatmap(numeric_df[numeric_df.isnull().any(axis=1)], cbar=False, cmap='viridis')\n",
+        "else:\n",
+        "    print(\"No missing values to visualize.\")"
+      ],
+      "id": "7b688dee",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure 2: Heatmap Visualizing Missing Values in Dataset](/Output/heatmapNaN.png){fig-alt=\"The heatmap illustrates missing values across different columns in the dataset. Columns with missing data are highlighted, while those without missing data remain unmarked. Here, the `Product`, `Quantity Ordered`, `Price Each`, `Order Date`, and `Purchase Address` columns contain missing values, as represented by the colored bars. The `Order ID` column has no missing values, shown by the absence of gaps.\" fig-align=\"center.\"} *Figure 2: Heatmap Visualizing Missing Values in Dataset*\n"
+      ],
+      "id": "f06970b1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "null_data = df[df.isnull().any(axis=1)]\n",
+        "null_data.head()\n",
+        "df.dropna(axis=0)"
+      ],
+      "id": "a05fc183",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<div>\n",
+        "\n",
+        "|      | Order ID | Product | Quantity Ordered | Price Each | Order Date | Purchase Address |\n",
+        "|----------|----------|----------|----------|----------|----------|----------|\n",
+        "| 264  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
+        "| 648  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
+        "| 680  | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
+        "| 1385 | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
+        "| 1495 | NaN      | NaN     | NaN              | NaN        | NaN        | NaN              |\n",
+        "\n",
+        "</div>\n",
+        "\n",
+        "### b/ Clean Up the Data\n"
+      ],
+      "id": "17aeb85b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df = df.dropna(how='all') df.head()\n",
+        "\n",
+        "<div>\n",
+        "\n",
+        "|   | Order ID | Product | Quantity Ordered | Price Each | Order Date | Purchase Address |\n",
+        "|-----------|-----------|-----------|-----------|-----------|-----------|-----------|\n",
+        "| 0 | 295665 | Macbook Pro Laptop | 1 | 1700 | 12/30/19 00:01 | 136 Church St, New York City, NY 10001 |\n",
+        "| 1 | 295666 | LG Washing Machine | 1 | 600.0 | 12/29/19 07:03 | 562 2nd St, New York City, NY 10001 |\n",
+        "| 2 | 295667 | USB-C Charging Cable | 1 | 11.95 | 12/12/19 18:21 | 277 Main St, New York City, NY 10001 |\n",
+        "| 3 | 295668 | 27in FHD Monitor | 1 | 149.99 | 12/22/19 15:13 | 410 6th St, San Francisco, CA 94016 |\n",
+        "| 4 | 295669 | USB-C Charging Cable | 1 | 11.95 | 12/18/19 12:38 | 43 Hill St, Atlanta, GA 30301 |\n",
+        "\n",
+        "</div>\n",
+        "\n",
+        "After dropping rows with all null values, we proceed with the following steps to ensure each column has the correct data type, particularly focusing on Order Date, Quantity Ordered, and Price Each.\n",
+        "\n",
+        "#### Steps for Data Cleaning and Extract Data\n",
+        "\n",
+        "1.  **Delete Remaining NaN Values:** Rows with NaN values in critical columns, like `Quantity Ordered` and `Price Each`, can skew our calculations. Here, we delete any rows that still contain NaN values.\n",
+        "\n",
+        " df = df.dropna()"
+      ],
+      "id": "8840bd10",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "2.  **Format the 'Order Date' Column:** The `Order Date` column contains date and time information, which we need in a consistent datetime format. Some rows may have text instead of dates, so we filter those out first.\n"
+      ],
+      "id": "e3e2dcdb"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "md-indent": "    "
+      },
+      "source": [
+        "# Remove rows with text in 'Order Date'\n",
+        "df = df[df['Order Date'].str[0:2] != 'Or']\n",
+        "\n",
+        "# Convert 'Order Date' to datetime\n",
+        "df['Order Date'] = pd.to_datetime(df['Order Date'])"
+      ],
+      "id": "c5dedd0a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "3.  **Convert Columns to Correct Data Types:** Ensure `Quantity Ordered` and `Price Each` are numeric, as they may currently be strings due to initial data loading.\n"
+      ],
+      "id": "6fe6c82b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "md-indent": "    "
+      },
+      "source": [
+        "# Convert to numeric\n",
+        "df[['Quantity Ordered', 'Price Each']] = df[['Quantity Ordered', 'Price Each']].apply(pd.to_numeric, errors='coerce')"
+      ],
+      "id": "750884f7",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "4.  **Extract Month from 'Order Date':** We can extract the month from the `Order Date` column to analyze monthly sales patterns.\n"
+      ],
+      "id": "aaef9d67"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "md-indent": "    "
+      },
+      "source": [
+        "df['Month'] = df['Order Date'].dt.month"
+      ],
+      "id": "de3e1065",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "5.  **Create a City Column:** The `Purchase Address` column contains city and state information, which we can extract for location-based analysis. Using functions allows flexibility for complex address formats.\n"
+      ],
+      "id": "775a339a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "md-indent": "    "
+      },
+      "source": [
+        "def get_city(address):\n",
+        "    return address.split(',')[1].strip()\n",
+        "\n",
+        "def get_state(address):\n",
+        "    return address.split(',')[2].split(' ')[1]\n",
+        "\n",
+        "df['City'] = df['Purchase Address'].apply(lambda x: f\"{get_city(x)} ({get_state(x)})\")"
+      ],
+      "id": "b05ca8a6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 4. Analysis and Insights\n",
+        "\n",
+        "With a clean dataset, we’re ready to perform deeper analysis to uncover patterns and insights. The following sections could cover key insights, such as peak sales months, popular products, and sales distributions across different cities.\n",
+        "\n",
+        "### a/ **What is the best months for sales?**\n",
+        "\n",
+        "The question as for analysis on 'Sales' grouped by months. By creating a 'Sales' columns we report products of 'Quantity' and 'Price Each'.\n"
+      ],
+      "id": "edcee94b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df['Sales'] = df['Quantity Ordered'] * df['Price Each']"
+      ],
+      "id": "b2a1f85c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We now can choose the columns to calculate base on new information of 'Sales' column. For monthly sales, we choose the 'Month' and then mathematically group `sum` 'Sales' value by it. Here is the example for query and draw charts columns.\n"
+      ],
+      "id": "536f7110"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "month_sales = df.groupby('Month')['Sales'].sum()\n",
+        "month_sales.plot(kind='bar')\n",
+        "plt.xticks(rotation='horizontal')\n",
+        "plt.ylabel('Sales in USD')\n",
+        "plt.xlabel('Month')\n",
+        "plt.title('Total Sales by Month')\n",
+        "plt.show()"
+      ],
+      "id": "64f0b862",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<img src=\"/Output/Total_Sales_ByMonths.png\" alt=\"Blue columns sorted by months on x-axis and the y-axis show the Sales in USD. The Sales increase by the first 4 months and evenly decrease the total sales still it first soaks on October. The next months show the down fall in total sales then rocket to highest sales of the year at nearly 5 million us dollar.\"/> *Figure 3: Total Sales By Month*\n",
+        "\n",
+        "The sales data over the period from **January to December** reveals notable trends in overall sales performance showing **a steady increase in sales** over the year with several **seasonal spikes** in specific months. This pattern suggests growing customer engagement and effective sales strategies, especially during peak periods.\n",
+        "\n",
+        "**Monthly Highlights** Certain months stand out for their impact on sales performance:\n",
+        "\n",
+        "-   **December** recorded the **highest sales volume**, likely due to the holiday season and year-end promotions, capturing increased consumer spending.\n",
+        "\n",
+        "-   **October** saw a significant boost, possibly driven by a targeted sale program or promotion.\n",
+        "\n",
+        "-   April to November showed a gradual decline, indicating a stabilization in demand. This may suggest a shift from high initial interest and purchases to more spontaneous or needs-based buying, as customers adjusted after initial seasonal spikes.\n",
+        "\n",
+        "### b/ How can businesses leverage the insights from the monthly and quarterly sales analyses to optimize inventory planning and marketing strategies?\n",
+        "\n",
+        "**City Sales by Month** To understand the sales distribution across cities for each month, we can use a 100% stacked bar chart to display the proportion of total sales contributed by each city per month.\n"
+      ],
+      "id": "e47fd6a3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Calculate monthly sales by city and normalize for 100% stacked bar\n",
+        "city_sales_month_normalized = df.groupby(['Month', 'City'])['Sales'].sum().unstack()\n",
+        "city_sales_month_normalized = city_sales_month_normalized.div(city_sales_month_normalized.sum(axis=1), axis=0)\n",
+        "\n",
+        "# Plot the monthly sales by city\n",
+        "plt.figure(figsize=(14, 10))\n",
+        "city_sales_month_normalized.plot(kind='bar', stacked=True, colormap='viridis')\n",
+        "plt.title('Monthly Sales by City (Normalized)', fontsize=16)\n",
+        "plt.xlabel('Month', fontsize=14)\n",
+        "plt.ylabel('Percentage of Total Sales', fontsize=14)\n",
+        "plt.legend(title='City', bbox_to_anchor=(1.05, 1), loc='upper left')\n",
+        "plt.grid(False)\n",
+        "plt.xticks(rotation=0, fontsize=12)\n",
+        "plt.yticks(fontsize=12)\n",
+        "plt.show()"
+      ],
+      "id": "88b81765",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Insights from Monthly Sales** The above chart displays the proportion of each city's sales as a percentage of total monthly sales. This visualization can help identify:\n",
+        "\n",
+        "-   **High-Performing Months for Each City:** By observing the bars, we can see months where certain cities (e.g., San Francisco, Los Angeles) dominate sales.\n",
+        "-   **Seasonal Trends:** Certain cities may perform better during specific months, indicating possible seasonality in consumer spending.\n",
+        "\n",
+        "**Quarterly Sales Analysis** Next, let's examine quarterly sales by city to understand the overall contribution of each city across quarters, with a focus on identifying the top-performing region in Q1 (Jan–Apr) and in the last three months of the year.\n"
+      ],
+      "id": "9d84a02c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Add 'Quarter' column to data\n",
+        "df['Quarter'] = df['Order Date'].dt.quarter\n",
+        "\n",
+        "# Calculate quarterly sales by city and normalize for 100% stacked bar\n",
+        "city_sales_normalized = df.groupby(['Quarter', 'City'])['Sales'].sum().unstack()\n",
+        "city_sales_normalized = city_sales_normalized.div(city_sales_normalized.sum(axis=1), axis=0)\n",
+        "\n",
+        "# Plot quarterly sales by city\n",
+        "plt.figure(figsize=(12, 8))\n",
+        "city_sales_normalized.plot(kind='area', stacked=True, colormap='Blues', alpha=0.85)\n",
+        "plt.title('Quarterly Sales by City (Normalized)', fontsize=16)\n",
+        "plt.xlabel('Quarter', fontsize=14)\n",
+        "plt.ylabel('Percentage of Total Sales', fontsize=14)\n",
+        "plt.legend(title='City', bbox_to_anchor=(1.05, 1), loc='upper left')\n",
+        "plt.grid(False)\n",
+        "plt.xticks(rotation=0, fontsize=12, ticks=[1, 2, 3, 4])\n",
+        "plt.yticks(fontsize=12)\n",
+        "plt.show()"
+      ],
+      "id": "06b30bef",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Quarterly Sales by City (Normalized)](/Output/quarterlySalesByCitiesPercentStack.png){fig-alt=\"Normalize the contribution to the over sales by cities\"}\n",
+        "**Insights from Quaterly Sales** - **Top-Performing Region in Q1:** The chart shows which city contributed the most to total sales in Q1 (Jan–Mar). This insight helps us understand which regions experience strong demand at the start of the year. - **Sales in the Last 3 Months:** Observing the fourth quarter (Oct–Dec) helps identify cities with significant sales contributions, useful for year-end planning and inventory management.\n",
+        "\n",
+        "### **Key Takeaways of Sales Trends**\n",
+        "\n",
+        "-   **Peak Sales in December:** December recorded the highest sales volume, likely due to holiday season spending and effective year-end promotions. This peak highlights the importance of stock and promotional planning to maximize revenue during high-demand periods.\n",
+        "\n",
+        "-   **October Sale Spike:** A noticeable spike in October suggests successful promotional efforts, possibly attracting customers looking for early holiday deals. Businesses may consider launching targeted campaigns during this period to further boost sales.\n",
+        "\n",
+        "-   **Lower Mid-year Sales** Sales tend to decline gradually from April through November, indicating a stabilization in consumer demand. This period could benefit from targeted promotions to sustain engagement, encouraging needs-based or spontaneous purchases as customers' enthusiasm from early-year sales tapers off.\n",
+        "\n",
+        "-   **Monthly and Quarterly City Sales Patterns:**\n",
+        "\n",
+        "    -   **High-Performing Months for Specific Cities:** By examining the distribution of sales across cities on a monthly basis, we can identify high-performing months for particular locations. For instance, some cities, like San Francisco and Los Angeles, may have stronger sales in specific months, hinting at localized seasonality in demand.\n",
+        "    -   **Top-Performing Regions in Q1 and Q4:** Analysis of quarterly data reveals the regions that perform best during Q1 (January–March) and the last quarter (October–December). This insight is valuable for planning region-specific inventory and marketing strategies to maximize regional strengths during these peak times.\n",
+        "\n",
+        "### c/ **What city sold the most product?**\n",
+        "\n",
+        "For cities, we could focus on deciding group of 'Sales' by 'Cities'. This analysis could presents the sales values and its performance through city.\n"
+      ],
+      "id": "9f528f41"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "city_sales = df.groupby('City')['Sales'].sum().sort_values()\n",
+        "city_sales.plot(kind='bar')\n",
+        "plt.xticks(rotation='vertical')\n",
+        "plt.ylabel('Sales in USD')\n",
+        "plt.xlabel('City')\n",
+        "plt.title('Total Sales by City')\n",
+        "plt.show()"
+      ],
+      "id": "fabf0f87",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<img src=\"/Output/Total_Sales_byCity.png\" alt=\"Total Sales By City\"/> *Figure 4: Total Sales By City*\n",
+        "\n",
+        "**City Comparisons (Sales By City)** Analyzing the sales data across different cities reveals significant variations in performance. By grouping the data by 'City' and calculating the total sales, we can compare the sales volume to identify the highest and lowest performers:\n"
+      ],
+      "id": "4721c822"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Calculate total sales per city\n",
+        "city_sales = df.groupby('City')['Sales'].sum().reset_index()\n",
+        "\n",
+        "# Display the total sales per city\n",
+        "print(city_sales)"
+      ],
+      "id": "2e032f98",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "| City          | Sales              |\n",
+        "|---------------|--------------------|\n",
+        "| City          | Sales              |\n",
+        "| Atlanta       | \\$2,795,738.00     |\n",
+        "| Austin        | \\$1,819,582.00     |\n",
+        "| Boston        | \\$3,661,642.00     |\n",
+        "| Dallas        | \\$2,767,975.00     |\n",
+        "| Los Angeles   | \\$5,452,571.00     |\n",
+        "| New York City | \\$4,664,756.00     |\n",
+        "| Portland      | \\$2,321,016.00     |\n",
+        "| San Francisco | **\\$8,262,203.00** |\n",
+        "| Seattle       | \\$2,747,532.00     |\n",
+        "\n",
+        ": *Table 2: The calculation of the Sales by Cities*\n",
+        "\n",
+        "-   **Top-Performing Cities**: San Francisco, Los Angeles, and New York City lead in sales, with San Francisco surpassing \\$8 million, followed closely by Los Angeles and New York City.\n",
+        "\n",
+        "-   **Low-Performing Cities**: Austin and Portland show the lowest sales figures, possibly due to smaller markets or differing economic conditions.\n",
+        "\n",
+        "**Key Insights for Top-Performing Cities and Low-Performance Cities**\n",
+        "\n",
+        "-   **San Francisco, Los Angeles, and New York City** are the top-performing cities, with San Francisco leading significantly with over \\$8 million in sales. These cities benefit from large, diverse populations, high purchasing power, and strong economic activity.\n",
+        "-   **Austin and Portland** have the lowest sales figures, likely due to smaller markets or different economic conditions. These cities may represent growth opportunities with targeted marketing efforts.\n",
+        "\n",
+        "### d/ What is sales performance by quarter over cities?\n",
+        "\n",
+        "To gain deeper insight into sales trends, we analyzed the percentage change in sales for each city by quarter. This helps identify periods of growth or decline and spot seasonal trends.\n"
+      ],
+      "id": "6241952c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Calculate the percentage change in sales for each quarter compared to the previous quarter\n",
+        "df['Quarter'] = df['Order Date'].dt.quarter\n",
+        "city_sales = df.groupby(['City','Quarter'])['Sales'].sum().unstack()\n",
+        "quarter_sales_pct_change = city_sales.pct_change() * 100\n",
+        "\n",
+        "# Display the percentage change\n",
+        "print(quarter_sales_pct_change)"
+      ],
+      "id": "3d09f660",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Insights from Quarterly Sales Trends Across Cities** - **Steady Growth in Major Cities:** Cities like San Francisco and Los Angeles demonstrate steady growth across quarters, indicating consistent demand and strong economic bases. - **Seasonal Declines in Some Cities:** Cities such as Portland and Austin show seasonal drops in certain quarters, likely due to local economic or environmental factors. Understanding these patterns can help businesses adjust marketing and inventory strategies accordingly.\n",
+        "\n",
+        "**Visualizing Quarterly Sales Change** The 100% stacked bar chart below displays the percentage change in sales for each city by quarter, highlighting growth or decline.\n"
+      ],
+      "id": "cfb1a9cb"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plt.figure(figsize=(12, 8))\n",
+        "quarter_sales_pct_change.div(100).plot(kind='bar', stacked=True, colormap='viridis', alpha=0.75)\n",
+        "plt.title('Sales Percentage Change by City and Quarter')\n",
+        "plt.xlabel('City')\n",
+        "plt.ylabel('Percentage Change')\n",
+        "plt.legend(title='Quarter', bbox_to_anchor=(1.05, 1), loc='upper left')\n",
+        "plt.grid(True, axis='y')\n",
+        "plt.show()"
+      ],
+      "id": "93a3673b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### e/ What products sales are prominent due to the cities sales?\n",
+        "\n",
+        "This section explores product demand across different categories and cities to identify popular products, understand regional preferences, and infrom inventory planning. By visualizing products purchased per Order ID by city, we can uncover city-specific preferences for particular products and categories. This includes examining sales data to determine top selling and low-selling products, observing consumer behavior trends, and making recommendations for inventory optimization by the region.\n",
+        "\n",
+        "In the following code, the analyse involve generating visualizations such as heatmap and pivot tables to illustrate product popularity by category and city.\n"
+      ],
+      "id": "316aaa08"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Plot the products purchased per order ID by city\n",
+        "fig, ax = plt.subplots(figsize=(14, 10))\n",
+        "products_per_order_city = df.pivot_table(index='Product', columns='City', values='Order ID', aggfunc='count', fill_value=0)\n",
+        "sns.heatmap(products_per_order_city, cmap='YlGnBu', ax=ax)\n",
+        "plt.title('Products Purchased per Order ID by City')\n",
+        "plt.xlabel('City')\n",
+        "plt.ylabel('Product')\n",
+        "plt.xticks(rotation=90)\n",
+        "plt.yticks(rotation=0)\n",
+        "plt.show()"
+      ],
+      "id": "9355553a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Key Insights for City-Specific Product Preferences** - **High-Demand Products in Key Cities:** High-intensity areas in the heat-map reveal products with broad appeal and demand. Certain products see high demand in cities like San Francisco and Los Angeles, especially in categories such as electronics. This trend reflects the purchasing power and consumer interests of these cities. - **Low-Demand Products Across All Cities:** Some products show lower sales volumes across the board, indicating niche appeal (\\[Austin, TX\\]: monitors, dryer, washing machine; \\[Portland, OR\\]: laptop, phone). These items could benefit from bundling strategies or targeted promotions to increase their visibility and appeal. - **Consumer Preferences:** There's a noticeable preference for practical and essential items. Shifts toward eco-friendly or sustainable products may be emerging.\n",
+        "\n",
+        "### f/ What insights can be drawn from the density plot of sales by city regarding sales distribution and city-specific spending patterns?\n",
+        "\n",
+        "The density plot below illustrates the distribution of sales values across cities, highlighting cities with a wider range of purchase amounts.\n"
+      ],
+      "id": "4b95b8fa"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(figsize=(14, 10))\n",
+        "sns.kdeplot(data=df, x='Sales', hue='City', fill=True, common_norm=False, alpha=0.5, ax=ax)\n",
+        "plt.title('Density Plot of Sales by City')\n",
+        "plt.xlabel('Sales in USD')\n",
+        "plt.ylabel('Density')\n",
+        "plt.show()"
+      ],
+      "id": "db77e86e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Key Insights on Sales Distribution and Spending Patterns by City** - **Diverse Sales Ranges in Major Cities:** Cities like San Francisco and New York City exhibit a wide range of purchase amounts, which suggests a mix of high-value purchases and frequent, lower-value transactions. - **City-Specific Spending Peaks:** Some cities show concentrated sales at specific price points, suggesting common purchasing behaviors and popular price brackets. This insight can guide product pricing strategies to match city-specific spending habits.\n",
+        "\n",
+        "### **Key Takeaways City Comparisons**\n",
+        "\n",
+        "-   **Growth Opportunities:** For low-performing cities such as Austin and Portland, targeted marketing campaigns and tailored promotions could help boost sales and tap into untapped markets.\n",
+        "-   **City-Specific Product Strategies:** Tailoring product offerings to match each city’s preferences, such as electronics in tech-oriented cities, can drive sales. Adjusting inventory and marketing plans based on seasonal demand fluctuations can help optimize sales, especially in cities with significant seasonal variability.\n",
+        "-   **Quarterly Insights for Inventory Planning:** High-demand items should be well-stocked in top-performing cities, while niche products may require selective stocking or promotion strategies.\n",
+        "\n",
+        "### g/ Which products are the most popular, and what common traits do they share?\n",
+        "\n",
+        "By analyzing total quantities ordered, we identified the most popular products. These items generally share traits such as **affordable pricing**, high **functionality**, or **seasonal appeal**. For instance, products that address common, everyday needs—like basic electronics or accessories—often have higher order volumes.\n"
+      ],
+      "id": "493fcbe7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "## Quantity Ordered by Product\n",
+        "product_groups = df.groupby('Product')\n",
+        "quantity_ordered = product_groups['Quantity Ordered'].sum()\n",
+        "\n",
+        "products = [product for product, df in product_groups]\n",
+        "plt.bar(products, quantity_ordered)\n",
+        "plt.ylabel('Quantity Ordered')\n",
+        "plt.xticks(products, rotation='vertical')\n",
+        "plt.show()"
+      ],
+      "id": "a4c9810c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure Quantity Order by Products](/Output/order_QuantityProduct.png){ @fig-ProductQuantityOrdered } *Figure 5: Order Quantity by Products*\n",
+        "\n",
+        "The bar chart visualization of \"Quantity Ordered by Product\" highlights high-demand items, showing that consumer preferences lean on specific group of attributes belong to products with assumption of balanced price-to-value ratio.\n",
+        "\n",
+        "**Sales Trends and Seasonal Changes (Normalized Quantitty by Months)** The products sales trends by months are provided insight about the common traits in products trends by season:\n"
+      ],
+      "id": "5ee67b8f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "if 'Month' not in df.columns:\n",
+        "    df['Month'] = df['Order Date'].dt.month\n",
+        "\n",
+        "orderProductByMonths = df.groupby(['Month', 'Product'])['Quantity Ordered'].sum().reset_index()\n",
+        "# orderProductByMonths['Sum'] = orderProductByMonths.sum(axis=1)\n",
+        "orderProductByMonths\n",
+        "# Calculate the total quantity ordered per month\n",
+        "totalQuantityByMonth = df.groupby('Month')['Quantity Ordered'].sum().reset_index()\n",
+        "totalQuantityByMonth.rename(columns={'Quantity Ordered': 'Total Quantity Ordered'}, inplace=True)\n",
+        "# Merge the monthly totals with the monthly product orders\n",
+        "normalized_orders = pd.merge(orderProductByMonths, totalQuantityByMonth, on='Month')\n",
+        "\n",
+        "# Normalize the quantity ordered by the total quantity ordered per month\n",
+        "normalized_orders['Normalized Quantity'] = normalized_orders['Quantity Ordered'] / normalized_orders['Total Quantity Ordered']\n",
+        "size = normalized_orders['Normalized Quantity']/100\n",
+        "sns.scatterplot(data=normalized_orders, x='Month', y='Normalized Quantity', hue='Product', palette='Dark2', size=size)\n",
+        "plt.title('Normalized Quantity of Products Ordered by Month')\n",
+        "plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)\n",
+        "plt.show()"
+      ],
+      "id": "03e2526c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure Normalized Quantity of Products Ordered by Month](/Output/normQuantityProductsOrdByMonth.png){fig-alt=\"Plot show identification seasonal trends for each product. The insights drawn about common traits in product trends by season\"} *Figure 6: Normalized Quantity of Products Ordered by Month*\n",
+        "\n",
+        "1.  **Steady Demand Products:** **charging cables**, **batteries** show a relatively consistent demand across all months, reflecting their utility-based nature. They are essential, frequently used, or replacement items that customers buy regardless of the season.\n"
+      ],
+      "id": "dc0a1609"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "monitor = ['20in Monitor','27in FHD Monitor','34in Ultrawide Monitor']\n",
+        "headphones = ['Apple Airpods Headphones','Bose SoundSport Headphones', 'Wired Headphones']\n",
+        "battery = ['AA Bateries (4-pack)', 'AAA Batteries (4-pack)']\n",
+        "chargingCable = ['Lightning Charging Cable', 'USB-C Charging Cable']\n",
+        "\n",
+        "# Plot the sales trends for each product group\n",
+        "plt.figure(figsize=(12, 8))\n",
+        "for product in monitor + headphones + battery + chargingCable:\n",
+        "    product_trend = normalized_orders[normalized_orders['Product'] == product]\n",
+        "    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], label=product, marker='o')\n",
+        "\n",
+        "# Plot other products in light gray\n",
+        "other_products = set(normalized_orders['Product']) - set(monitor + headphones + battery + chargingCable)\n",
+        "for product in other_products:\n",
+        "    product_trend = normalized_orders[normalized_orders['Product'] == product]\n",
+        "    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], color='lightgray', alpha=0.5)\n",
+        "\n",
+        "plt.title('Sales Trends for Monitors and Headphones and Batteries')\n",
+        "plt.xlabel('Month')\n",
+        "plt.ylabel('Normalized Quantity')\n",
+        "plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)\n",
+        "plt.grid(True)\n",
+        "plt.show()\n",
+        "phones = ['iPhone', 'Google Phone']\n",
+        "laptops = ['Macbook Pro Laptop', 'ThinkPad Laptop']"
+      ],
+      "id": "d096cafb",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure Sales Trends for Monitors and Headphones](/Output/monitorHeadphoneTopNorm.png){fig-alt=\"Consistent level of demand across all months\"} *Figure 7: Sales Trends for Monitors and Headphones and Batteries*\n",
+        "\n",
+        "2.  **Seasonal Peak Products**: headphones (Apple AirPods, Bose SoundSport), **monitor** show increased demand in certain months, particularly around November and December, likely due to holiday shopping and gift-giving. Some peaks may also align with back-to-school periods (e.g., Feburary, October) as consumers set up or upgrade their tech for school or remote work.\n",
+        "\n",
+        "3.  **No Seasonality and Brand Indentity:** Both the Phone and the laptops (MacBook Pro and ThinkPad) show steady demand without significant peaks or fluctuations, suggesting they are essential, utility-based items that consumers purchase throughout the year based on need rather than seasonality. For brand consumer, customer prefers products come from the Apple company more than alternative choice. This could effects on highlighting features, quality, or professional benefits, appealing to consumers’ consistent need for these items.\n"
+      ],
+      "id": "935014ac"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "phones = ['iPhone', 'Google Phone']\n",
+        "laptops = ['Macbook Pro Laptop', 'ThinkPad Laptop']\n",
+        "\n",
+        "# Plot the sales trends for each product group\n",
+        "plt.figure(figsize=(12, 8))\n",
+        "for product in phones + laptops:\n",
+        "    product_trend = normalized_orders[normalized_orders['Product'] == product]\n",
+        "    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], label=product, marker='o')\n",
+        "\n",
+        "# Plot other products in light gray\n",
+        "other_products = set(normalized_orders['Product']) - set(phones + laptops)\n",
+        "for product in other_products:\n",
+        "    product_trend = normalized_orders[normalized_orders['Product'] == product]\n",
+        "    plt.plot(product_trend['Month'], product_trend['Normalized Quantity'], color='lightgray', alpha=0.5)\n",
+        "\n",
+        "plt.title('Sales Trends for Phones and Laptops')\n",
+        "plt.xlabel('Month')\n",
+        "plt.ylabel('Normalized Quantity')\n",
+        "plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)\n",
+        "plt.grid(True)\n",
+        "plt.show()"
+      ],
+      "id": "b6653d59",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "\\~[Figure Plot Sales Trends for Phones and Laptops](/Output/phoneLaptopNorm.png){fig-alt=\"the normalized sales trends for phones (iPhone and Google Phone) and laptops (MacBook Pro and ThinkPad) across each month\"}\n",
+        "\n",
+        "*Figure 8: Sales Trends for Phones and Laptops*\n",
+        "\n",
+        "**Key Insights Products Analyse and Common Traits** - **High-end, seasonal products** (monitors, premium headphones): High responsiveness to holiday seasons and promotions, driven by gift-giving and consumer upgrade behavior. - **Essential, consistent-demand products** (batteries, charging cables): Steady year-round demand with minimal seasonal influence, purchased out of necessity or regular replacement needs\n",
+        "\n",
+        "### h/ What are the specific product attributes (e.g., price, brand, features) that appeal most to our consumers?\n",
+        "\n",
+        "Examining top-sellers by total sales revenue reveals a preference for products that **balance price with perceived value**. High-revenue items, even if not the most frequently purchased, often have attributes that enhance their appeal—such as brand reputation, special features, or unique functionalities that justify a higher price point.\n"
+      ],
+      "id": "adc3ecfc"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Referenced: https://stackoverflow.com/questions/14762181/adding-a-y-axis-label-to-secondary-y-axis-in-matplotlib\n",
+        "\n",
+        "# product_groups = df.groupby('Product')\n",
+        "# quantity_ordered = product_groups['Quantity Ordered'].sum()\n",
+        "products = [product for product, df in product_groups]\n",
+        "prices = product_groups['Price Each'].mean()\n",
+        "\n",
+        "fig, ax1 = plt.subplots()\n",
+        "ax2 = ax1.twinx()\n",
+        "ax1.bar(products, order_purchase, color='g')\n",
+        "# ax1.bar(products, quantity_ordered, color='g')\n",
+        "ax2.plot(products, prices, 'b-')\n",
+        "\n",
+        "ax1.set_xlabel('Product Name')\n",
+        "ax1.set_ylabel('Quantity Ordered', color='g')\n",
+        "ax2.set_ylabel('Price ($)', color='b')\n",
+        "ax1.set_xticklabels(products, rotation='vertical', size=8)\n",
+        "\n",
+        "fig.show()"
+      ],
+      "id": "48482e2a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure examining the relationship between price and quantity](/Output/dualAxisBarLinePlot.png){@fig-dualAxisBarAndLinePlot }\n",
+        "\n",
+        "*Figure 9: Combination plots to Quantity Ordered and Price Each*\n",
+        "\n",
+        "The bar chart visualization of \"Quantity Ordered by Product\" highlights these high-demand items, showing that **consumer preferences** often favor items with a balanced price-to-value ratio. Products with very high prices may still generate considerable sales revenue but see fewer orders. Consumers lean towards products that meet their needs at affordable prices, while high-priced products may be less frequently ordered but still contribute to overall revenue.\n",
+        "\n",
+        "For the product popularity, the another visualization of **scatter plot with maker size** suggests that customer demand remains steady for these types of products, with a notable influence of price accessibility on purchasing decisions.\n"
+      ],
+      "id": "ba8a504b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Scatter Plot with size of sales volumes\n",
+        "order_product_sales = df.groupby(['Order ID', 'Product'])['Sales'].sum().reset_index()\n",
+        "order_product_sales['Quantity Ordered'] = df.groupby(['Order ID', 'Product'])['Quantity Ordered'].sum().reset_index(drop=True)\n",
+        "print(order_product_sales.head())\n",
+        "\n",
+        "# Calculate the size of the markers based on the quantity ordered\n",
+        "order_product_sales['Size'] = order_product_sales['Quantity Ordered'].astype(float)\n",
+        "\n",
+        "fig, ax = plt.subplots(figsize=(10, 6))\n",
+        "scatter = ax.scatter(order_product_sales['Sales'], order_product_sales['Product'], s=order_product_sales['Size']*400, c=order_product_sales['Sales'], cmap='viridis', edgecolor='w', linewidth=0.25)\n",
+        "plt.ylabel('Product')\n",
+        "plt.xlabel('Sales in USD')\n",
+        "plt.title('Sales per Order by Product (Size represents Quantity Ordered)')\n",
+        "plt.show()"
+      ],
+      "id": "e31a3855",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure of Scatter Plot with Marker Size](/Output/scatterPlot_withSalesVolumnSize.png){Combine quantity ordered, sales per order, and color-coded sales values in a single view.}\n",
+        "\n",
+        "*Figure 10: Sales per Order by Product*\n",
+        "\n",
+        "This scatter plot provides a clear relationship between sales revenue and quantity ordered for each product. Products positioned towards the right (higher sales) and with larger marker sizes are both high in sales revenue and quantity ordered. These items indicate top-performing products that generate significant revenue while also being highly ordered. High-selling products share position on the left with big marker sizes share traits like affordability, functionality, or promotion packages in seasonal appeal, catering to consistent consumer demand. The larger-sized markers for certain products suggest that affordability or essential utility drives high order volumes.\n",
+        "\n",
+        "**Key Takeaways Product Popularity** Attributes Driving Demand:\n",
+        "\n",
+        "-   **Affordability:** Frequently purchased items tend to be within moderate price ranges, aligning with consumer preferences for accessible pricing.\n",
+        "-   **Quality Brand Names:** Products from trusted brands with positive reputations tend to perform well, as consumers often value reliability and brand assurance.\n",
+        "-   **Seasonal Relevance**: Certain items, such as gifts or seasonal electronics, see surges during specific periods, indicating that timely product availability boosts demand.\n",
+        "\n",
+        "By understanding these patterns, we can optimize inventory for popular items, explore promotional campaigns for low-selling products, and consider price adjustments to maximize product appeal. Additionally, **peak shopping hours** (based on order timestamps) reveal potential windows for targeted marketing, further enhancing sales potential.\n"
+      ],
+      "id": "a0d780f2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Add hour column\n",
+        "df['Hour'] = pd.to_datetime(df['Order Date']).dt.hour\n",
+        "df['Minute'] = pd.to_datetime(df['Order Date']).dt.minute\n",
+        "df['Count'] = 1\n",
+        "df.head()\n",
+        "\n",
+        "keys = [pair for pair, df in df.groupby(['Hour'])]\n",
+        "\n",
+        "plt.plot(keys, df.groupby(['Hour']).count()['Count'])\n",
+        "plt.xticks([key[0] for key in keys])\n",
+        "plt.grid()\n",
+        "plt.show()"
+      ],
+      "id": "8b544795",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "![Figure Quanity Ordered by Time](/Output/orderQuantityTime.png){fig-alt=\"Peaking shopping hours show the graph of order quantity variate by hours and have reach two top sales at 12 a.m and 07 p.m\", @fig-Ordered-Quantity-by-Hour}\n",
+        "\n",
+        "*Figure 11: Order Quantity by Hour*\n",
+        "\n",
+        "## 5. Business Recommendation\n",
+        "\n",
+        "### A. Seasonal Promotion Strategies\n",
+        "\n",
+        "-   **Peak Sales Periods:** Leverage the high sales volumes in December and October by planning targeted promotions and marketing campaigns around these times. Consider holiday-themed promotions, discounts, and special offers to attract more customers (e.g. Back-to-School)\n",
+        "-   **Seasonal Products:** Focus on promoting products that show seasonal spikes, such as electronics and gift items, during the holiday season to maximize sales.\n",
+        "\n",
+        "### B. Product and Location Strategy\n",
+        "\n",
+        "-   **Top-Performing Products:** Ensure that high-demand products, such as batteries and charging cables, are well-stocked, especially in top-performing cities like San Francisco, Los Angeles, and New York City.\n",
+        "-   **Expansion Opportunities:** Consider opening new stores or expanding marketing efforts in high-performing cities to capitalize on strong sales trends. For low-performing cities like Austin and Portland, targeted marketing campaigns could help boost sales.\n",
+        "\n",
+        "### C. Time-Based Advertising and Cross-Selling and Product Bundling\n",
+        "\n",
+        "-   **High-Traffic Hours:** Schedule advertising and promotional activities around peak shopping hours, such as 12 PM and 7 PM, to increase customer engagement and drive sales.\n",
+        "-   **Product Bundles:** Create bundles for products frequently bought together, such as laptops with accessories or charging cables with batteries. This strategy can encourage higher average transaction values and improve customer satisfaction.\n",
+        "\n",
+        "## 6. Conclusion\n",
+        "\n",
+        "### A. Summary of Findings\n",
+        "\n",
+        "-   **Sales Trends:** The analysis revealed a steady increase in sales throughout the year, with significant spikes in December and October. San Francisco, Los Angeles, and New York City emerged as top-performing cities.\n",
+        "-   **Product Demand:** High-demand products include laptops, charging cables, and batteries, while low-demand products may benefit from targeted promotions.\n",
+        "-   **Consumer Preferences:** Consumers prefer affordable, functional items, with seasonal products showing increased demand during specific months.\n",
+        "\n",
+        "### B. Actionable Takakes\n",
+        "\n",
+        "-   **Stock Management:** Ensure high-demand products are well-stocked during peak sales periods to avoid stockouts and maximize revenue.\n",
+        "-   **Targeted Promotions:** Implement targeted marketing campaigns in low-performing cities and during high-traffic hours to boost sales.\n",
+        "-   **Product Bundling:** Encourage higher transaction values by offering product bundles for frequently bought-together items.\n",
+        "\n",
+        "### C. Future Steps\n",
+        "\n",
+        "-   **Customer Demographics:** Investigate customer demographics to better understand purchasing behavior and tailor marketing strategies accordingly.\n",
+        "-   **Seasonal Trends:** Explore seasonal product trends in more detail to optimize inventory and marketing efforts.\n",
+        "-   **Social Media Sentiment:** Incorporate social media sentiment data to gauge customer opinions and preferences, informing product development and marketing strategies."
+      ],
+      "id": "46ac573a"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/usr/local/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
